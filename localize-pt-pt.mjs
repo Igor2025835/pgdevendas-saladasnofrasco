@@ -38,9 +38,9 @@ export function localizePtPt(html) {
  ['refrigerada','no frigorífico']
  ];
  const faq=[
+ ['Preciso de um frasco de vidro específico?','Não. Podes usar qualquer frasco ou recipiente que já tenhas em casa, de vidro ou até de plástico, desde que seja próprio para alimentos e feche bem. Não precisas de comprar um modelo específico.'],
  ['Como recebo as minhas receitas?','Após a confirmação do pagamento, recebes por e-mail as instruções para acederes aos conteúdos digitais e começares a consultar as receitas.'],
  ['O curso tem garantia?','Sim. Tens 14 dias para experimentar as receitas. Se não gostares, podes pedir o reembolso de 100% do valor dentro desse prazo.'],
- ['Preciso de frascos especiais?','Não. Podes usar os frascos ou recipientes que já tens em casa, de vidro ou de plástico, desde que sejam próprios para alimentos e fechem bem.'],
  ['As receitas incluem os molhos?','Sim. As receitas incluem molhos caseiros e instruções para os preparares e combinares com cada salada.'],
  ['Quanto tempo dura a salada no frigorífico?','Segue o prazo indicado em cada receita. Como referência geral, as preparações com frango, atum, ovos ou massa cozidos devem ser consumidas em 3 a 4 dias, conservadas a 4 °C ou menos. A ordem das camadas não impede a deterioração.'],
  ['Posso preparar as saladas da semana de uma só vez?','Podes organizar os ingredientes e preparar várias saladas com antecedência. O tempo de montagem depende da preparação dos ingredientes. Respeita o prazo de conservação de cada receita.'],
