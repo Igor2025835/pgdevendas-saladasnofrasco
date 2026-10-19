@@ -1,7 +1,7 @@
 const icon=name=>`<svg aria-hidden="true"><use href="#${name}"/></svg>`;
 export function reviewHero(html){
  const oldSubtitle=html.match(/<p class="hero-description">[\s\S]*?<\/p>/)?.[0]||'';
- const subtitle='<p class="hero-description">Aprenda a montar saladas <strong>especiais, nutritivas e cheias de sabor</strong> em cerca de <strong>20 minutos</strong> para a semana toda</p>';
+ const subtitle='<p class="hero-description">Crie saladas <strong>nutritivas, saudáveis e cheias de sabor</strong>, que ajudam a emagrecer, para toda a semana em apenas <strong>20 minutos.</strong></p>';
  html=html.replace(oldSubtitle,'').replace(/(<\/button>)(\s*<div class="hero-action">)/,'$1'+subtitle+'$2');
  html=html.replace(/<p class="hero-promise">[\s\S]*?<\/p>/,'').replace('<p>Coma melhor sem viver de alface e tomate.</p>','');
  if(!html.includes('class="hero-badge-wrap"'))html=html.replace('</h1>','</h1>'+"<div class=\"hero-badge-wrap\"><span class=\"hero-badge\"><svg aria-hidden=\"true\"><use href=\"#check\"/></svg>Mantenha durante 7 dias sem murchar.</span></div>");
