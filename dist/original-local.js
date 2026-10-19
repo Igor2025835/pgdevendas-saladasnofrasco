@@ -179,8 +179,8 @@ if (methodPreviewVideo) {
     const result = methodPreviewVideo.play();
     result?.catch(() => {
       methodAudioButton.hidden = false;
-      status.textContent = 'Assista à prévia da aula';
-      hint.textContent = 'Clique para reproduzir';
+      status.textContent = 'Vê a prévia da aula';
+      hint.textContent = 'Clica para reproduzir';
     });
   };
   const syncMethod = () => {

@@ -1,5 +1,6 @@
 import {reviewHero,reviewMethod,reviewContents,makeCategories,makeSalads,makeSauces,makePain,addPlanCta,reviewAuthor,reviewFooter,makeConversations,methodPreview} from './review-components.mjs';
 import fs from 'node:fs/promises';
+import {localizePtPt} from './localize-pt-pt.mjs';
 import path from 'node:path';
 import { createHash } from 'node:crypto';
 const base='https://controle.nutriliacastro.com/';
@@ -97,6 +98,7 @@ result=result.replace('</head>',trackingHead+'\n</head>');
 result=result.replace('<body class="elementor-kit-5">','<body class="elementor-kit-5"><noscript><img height="1" width="1" style="display:none" alt="" src="https://www.facebook.com/tr?id=1298949338782039&amp;ev=PageView&amp;noscript=1"></noscript>');
 result=result.replaceAll('7 dias de garantia','14 dias de garantia').replaceAll('7 dias de garantia incondicional','14 dias de garantia incondicional').replace('</head>',`<link rel="stylesheet" href="review.css?v=${reviewVersion}"></head>`);
 result=result.replace('src="original-local.js"',`src="original-local.js?v=${scriptVersion}"`);
+result=localizePtPt(result);
 await fs.writeFile('dist/index.html',result);
 await fs.writeFile('reference-original/build-report.json',JSON.stringify({source:base,sections:["hero com subtítulo atualizado","conteúdo original + bônus do app","seis saladas em duas colunas + carrossel infinito de estilos","dez conversas ilustrativas: seis Instagram e quatro WhatsApp","molhos em blocos","método unificado: aula prévia e três blocos ilustrados","três bônus locais","dificuldades em vermelho","planos de €4,90 e €7,90","autoria original","FAQ original atualizado"],video,media:[...mediaCache.values()],styles:cssFiles},null,2));
 console.log('Página montada. '+mediaCache.size+' imagens originais; '+cssFiles.length+' folhas de estilo.');
