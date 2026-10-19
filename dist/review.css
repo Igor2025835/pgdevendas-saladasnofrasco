@@ -1,8 +1,8 @@
 /* Browser review: hero, illustrated method, compact recipes, sauces and two plans. */
-.plan-deliverables li>svg:has(use[href="#gift"]){color:#be712e}
+#oferta .plan-deliverables li:has(use[href="#gift"]),#oferta .plan-deliverables li>svg:has(use[href="#gift"]){color:#315c43}
 .plan-app-bonus .plan-app-heading{font:600 14px/1.5 var(--sans);color:#31543b;margin:0 0 16px}
 .plan-app-bonus{background:#f4f6ed;border:1px solid #dfe6d1;border-radius:12px;padding:17px 14px 0;margin-bottom:23px}
-.plan-app-bonus h4{color:#9c541c}
+#oferta .plan-app-bonus h4{color:#c9510c}
 .plan-app-bonus li strong{display:block;color:#31543b;font-weight:700;margin-bottom:2px}
 #oferta .plan-grid-single{grid-template-columns:minmax(0,1fr);max-width:480px;margin-inline:auto}
 #oferta{scroll-margin-top:0;padding-top:24px}
