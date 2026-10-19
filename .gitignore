@@ -1,0 +1,14 @@
+node_modules/
+.tools/
+tmp/
+output/
+*.log
+.env
+.env.*
+!.env.example
+preview-*.jpg
+analise_criativos/
+reference-seu-almoco/
+reference-original/generated-final/
+reference-original/customer-reviews/
+reference-original/video-analysis/
