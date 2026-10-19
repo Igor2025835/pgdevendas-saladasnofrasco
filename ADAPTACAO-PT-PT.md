@@ -582,3 +582,9 @@ Quero o método e as receitas
 - “Substitua qualquer refeição”: confirmar adequação nutricional antes de usar como afirmação abrangente.
 - Valores de energia e quantidade de receitas: confirmar com os conteúdos finais.
 - Os prints fornecidos foram preservados, sem reescrever testemunhos ou alterar nomes. Texto incorporado em imagens e vídeo não foi alterado.
+
+## Segunda revisão — 19 de outubro de 2026
+
+Corrigidos: “Substitua” → “Substitui”; “manter o frescura” → “manter a frescura”; “SALADAS DA NUTRI” → “SOBRE A AUTORA”. Adaptados também a descrição para motores de pesquisa e os textos de acessibilidade: “aplicativo” → “aplicação”, “preparo” → “preparação”, “preparando” → “a preparar”, “sendo colocado” → “a ser servido”, “bônus” → “bónus”.
+
+Revisão visual: imagem do frigorífico, mockup do plano e amostras das legendas da aula. Mantidos os prints fornecidos pelo cliente. Não foi feita uma transcrição integral do áudio do vídeo; esta revisão não certifica a variante linguística de todas as falas. Mantêm-se os pontos de validação factual indicados acima.

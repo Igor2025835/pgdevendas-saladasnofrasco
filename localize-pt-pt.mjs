@@ -6,6 +6,9 @@ export function localizePtPt(html) {
  ['Descubra como fazer saladas tão','Descobre como preparar saladas tão'],
  ['Mantenha durante 7 dias sem murchar.','Conserva as saladas até 7 dias sem murcharem.'],
  ['Crie saladas','Prepara saladas'],['Quero minhas saladas saborosas','Quero as minhas saladas saborosas'],
+ ['Substitua qualquer refeição','Substitui qualquer refeição'],
+ ['SALADAS DA NUTRI','SOBRE A AUTORA'],
+ ['manter o frescor','manter a frescura'],
  ['Tudo o que você vai receber','Tudo o que vais receber'],['o que você','o que vais'],
  ['Monte com','Prepara com'],['que já tenha em casa.','que já tenhas em casa.'],
  ['As receitas no seu telemóvel.','As receitas no teu telemóvel.'],
@@ -60,6 +63,18 @@ export function localizePtPt(html) {
   return part;
  }).join('');
  html=html.replace('lang="pt-BR"','lang="pt-PT"');
+ const attributes=[
+  ['Saladas que viram refeição. Descubra o Método das 5 Camadas Saborosas, 60 receitas, molhos e o app Monte a Sua Salada.','Descobre mais de 60 receitas de saladas em frascos, o método das camadas, molhos caseiros e uma app para organizar as tuas refeições.'],
+  ['Aplicativo incluído no plano completo','Aplicação incluída no plano completo'],
+  ['Preparo e apresentação de molho sobre uma salada','Preparação e apresentação de molho sobre uma salada'],
+  ['Molho cremoso sendo colocado sobre uma salada colorida','Molho cremoso a ser servido sobre uma salada colorida'],
+  ['Chef preparando uma salada na cozinha','Chef a preparar uma salada na cozinha'],
+  ['três bônus em computador','três bónus em computador']
+ ];
+ html=html.replace(/\b(?:alt|aria-label|title|content)="[^"]*"/g,attr=>{
+  for(const [from,to] of attributes)attr=attr.split(from).join(to);
+  return attr;
+ });
  // The original heading separates its words across Elementor spans.
  html=html.replace(/o que vais(\s*<[^>]+>\s*)*vai\s*/i,match=>match.replace(/vai\s*$/,''));
  return html;
