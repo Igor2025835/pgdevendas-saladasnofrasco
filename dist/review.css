@@ -467,3 +467,27 @@
  .conversation-card figcaption svg{width:10px;height:10px}
  .plan-card .plan-material.plan-bundle{padding:10px 5px 3px}
 }
+/* Refresh closer to the original reference: olive, white, simple centered sections. */
+.hero h1{font-family:'Sora',Arial,sans-serif;font-size:36px;line-height:1.25;color:#3c342b;letter-spacing:-.025em;max-width:760px}
+.hero h1 em{color:#516927;-webkit-text-stroke:0;text-shadow:none;background:none;padding-bottom:0;font-style:normal}
+.hero .hero-main-image{border-radius:8px;max-width:440px}
+.original-reference .button-primary,.hero .button-primary{background:#516927;background-image:none;border-color:#516927;border-radius:8px;box-shadow:none}
+.original-reference .button-primary:hover,.hero .button-primary:hover{background:#40551e}
+#receitas .recipe-tile{border-radius:8px;box-shadow:none}
+#receitas .salad-objectives{display:none}
+#bonus .center-heading h2{font:400 31px/1.3 'Sora',Arial,sans-serif;text-transform:uppercase;letter-spacing:normal;color:#3c342b}
+#bonus .center-heading h2 strong{font-weight:700}
+#bonus .bonus-grid{gap:24px;max-width:900px}
+#bonus .bonus-card{border-radius:8px;border:1px solid #d8ddc9;box-shadow:none;background:#fff}
+#bonus .bonus-card h3{color:#516927;font-family:'Sora',Arial,sans-serif;font-size:25px}
+#bonus .bonus-app-preview{display:grid;place-items:center;background:#e7ead9;padding:15px;grid-column:1;grid-row:1;min-width:0}
+#bonus .bonus-card>.bonus-app-preview+div{grid-column:2;grid-row:1}
+.bonus-phone{width:min(100%,160px);background:#fff;border:5px solid #31543b;border-radius:18px;padding:16px 8px 12px;box-shadow:0 6px 16px #183f3415;text-align:center}
+.bonus-phone>span{font:700 11px/1.3 'Poppins',Arial,sans-serif;color:#31543b}
+.bonus-phone>div{display:grid;grid-template-columns:1fr 1fr;gap:5px;margin:10px 0}
+.bonus-phone img{display:block;width:100%;height:70px;object-fit:cover;border-radius:4px}
+.bonus-phone small{font:500 8px/1.4 'Poppins',Arial,sans-serif;color:#516927}
+#avaliacoes{background:#fff;padding-block:45px}
+#avaliacoes .review-heading{color:#3c342b;font:700 29px/1.3 'Sora',Arial,sans-serif;max-width:650px;margin-inline:auto}
+#oferta .plan-card{box-shadow:none;border-radius:10px}
+@media(max-width:600px){.hero h1{font-size:27px;line-height:1.3}.hero .hero-main-image{max-width:360px}#bonus .center-heading h2{font-size:26px}#bonus .bonus-card h3{font-size:20px}#bonus .bonus-card{grid-template-columns:36% minmax(0,1fr)}#bonus .bonus-card:nth-child(2){grid-template-columns:minmax(0,1fr) 36%}#bonus .bonus-app-preview{padding:10px 7px}.bonus-phone{border-width:4px;padding:12px 5px 9px}.bonus-phone>span{font-size:9px}.bonus-phone img{height:45px}.bonus-phone small{font-size:7px}#avaliacoes .review-heading{font-size:25px}}
