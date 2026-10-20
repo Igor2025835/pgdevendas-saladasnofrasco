@@ -72,7 +72,7 @@ export function makeCategories(html){
 }
 export function makeSalads(categories){
  const recipes=[['Refrescante','molho cítrico','original-6.webp',100],['Caprese','','original-7.webp',120],['Caesar','molho original','original-9.webp',115],['Big Mac','molho especial','original-14.webp',180],['Mediterrânea','molho agridoce','original-10.webp',120],['Rústica','mostarda e mel','reference-Design-sem-nome-9-1.png',160]];
- const cards=recipes.map(([name,sauce,file,kcal])=>'<article class="recipe-tile"><img src="assets/'+file+'" alt="Salada '+name+(sauce?' com '+sauce:'')+'" loading="lazy"><div class="recipe-tile-copy"><h3>Salada '+name+'</h3><p class="recipe-tile-sauce">'+(sauce?'+ '+sauce:'Tomate, queijo e frescor')+'</p><div class="recipe-tile-facts"><span>'+icon('clock')+'<span><strong>3–4 dias</strong>refrigerada</span></span><span>'+icon('leaf')+'<span><strong>'+kcal+' kcal</strong>valor de referência</span></span></div></div></article>').join('');
+ const cards=recipes.map(([name,sauce,file,kcal])=>'<article class="recipe-tile"><img src="assets/'+file+'" alt="Salada '+name+(sauce?' com '+sauce:'')+'" loading="lazy"><div class="recipe-tile-copy"><h3>Salada '+name+'</h3><p class="recipe-tile-sauce">'+(sauce?'+ '+sauce:'Tomate, queijo e frescor')+'</p><div class="recipe-tile-facts"><span>'+icon('clock')+'<span><strong>3–4 dias</strong>refrigerada</span></span><span>'+icon('leaf')+'<span><strong>'+kcal+' kcal</strong></span></span></div></div></article>').join('');
  return '<section class="recipe-section" id="receitas"><div class="review-wrap"><h2 class="review-heading">Algumas saladas<br><strong>que irá aprender:</strong></h2><div class="recipe-grid">'+cards+'</div>'+categories+'</div></section>';
 }
 export function makeSauces(){
