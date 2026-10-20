@@ -3,7 +3,7 @@ const videoContainer = dialog.querySelector('.video-container');
 document.querySelectorAll('.video-trigger').forEach(button => button.addEventListener('click', () => {
   const iframe = document.createElement('iframe');
   iframe.src = 'https://www.youtube-nocookie.com/embed/2-A2chrN41w?rel=0';
-  iframe.title = 'Tutorial das Camadas — Aurora Prado';
+  iframe.title = 'Tutorial das Camadas — Livia Siqueira';
   iframe.allow = 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture';
   iframe.allowFullscreen = true;
   videoContainer.replaceChildren(iframe);

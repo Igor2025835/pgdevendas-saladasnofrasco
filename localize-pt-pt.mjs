@@ -1,5 +1,6 @@
 // Localize rendered copy only; never change scripts, checkout URLs or customer screenshots.
 export function localizePtPt(html) {
+ html=html.replace(/aurora\s+prado/gi,'Livia Siqueira');
  const swaps=[
  ['Saladas no Pote — Muito além de comida de dieta','Saladas Saborosas no Frasco — Receitas para a semana'],
  ['Pular para o conteúdo','Saltar para o conteúdo'],
