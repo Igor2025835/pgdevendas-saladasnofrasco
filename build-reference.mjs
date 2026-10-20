@@ -95,7 +95,6 @@ const reviewVersion=createHash('sha256').update(await fs.readFile('dist/review.c
 const scriptVersion=createHash('sha256').update(await fs.readFile('dist/original-local.js')).digest('hex').slice(0,10);
 const trackingHead=await fs.readFile('reference-original/tracking-head.html','utf8');
 result=result.replace('</head>',trackingHead+'\n</head>');
-result=result.replace('<body class="elementor-kit-5">','<body class="elementor-kit-5"><noscript><img height="1" width="1" style="display:none" alt="" src="https://www.facebook.com/tr?id=1298949338782039&amp;ev=PageView&amp;noscript=1"></noscript>');
 result=result.replaceAll('7 dias de garantia','14 dias de garantia').replaceAll('7 dias de garantia incondicional','14 dias de garantia incondicional').replace('</head>',`<link rel="stylesheet" href="review.css?v=${reviewVersion}"></head>`);
 result=result.replace('src="original-local.js"',`src="original-local.js?v=${scriptVersion}"`);
 result=localizePtPt(result);
