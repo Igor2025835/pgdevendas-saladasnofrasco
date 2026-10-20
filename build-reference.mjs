@@ -98,6 +98,13 @@ result=result.replace('</head>',trackingHead+'\n</head>');
 result=result.replaceAll('7 dias de garantia','14 dias de garantia').replaceAll('7 dias de garantia incondicional','14 dias de garantia incondicional').replace('</head>',`<link rel="stylesheet" href="review.css?v=${reviewVersion}"></head>`);
 result=result.replace('src="original-local.js"',`src="original-local.js?v=${scriptVersion}"`);
 result=localizePtPt(result);
+// Visitors who have already passed the offer can proceed directly to checkout.
+const afterOffer=result.indexOf('</section>',result.indexOf('id="oferta"'))+'</section>'.length;
+result=result.slice(0,afterOffer)+result.slice(afterOffer).replace(/<a\b([^>]*\bclass="[^"]*\b(?:button|text-link)\b[^"]*"[^>]*)>([\s\S]*?)<\/a>/g,(all,attrs,body)=>{
+ if(!attrs.includes('href="#oferta"'))return all;
+ const icon=body.match(/<svg\b[\s\S]*?<\/svg>/)?.[0]||'';
+ return '<a'+attrs.replace('href="#oferta"','href="https://pay.hotmart.com/O108101669E?checkoutMode=10"')+'>Garantir o meu acesso'+icon+'</a>';
+});
 await fs.writeFile('dist/index.html',result);
 await fs.writeFile('reference-original/build-report.json',JSON.stringify({source:base,sections:["hero com subtítulo atualizado","conteúdo original + bônus do app","seis saladas em duas colunas + carrossel infinito de estilos","dez conversas ilustrativas: seis Instagram e quatro WhatsApp","molhos em blocos","método unificado: aula prévia e três blocos ilustrados","três bônus locais","dificuldades em vermelho","planos de €4,90 e €7,90","autoria original","FAQ original atualizado"],video,media:[...mediaCache.values()],styles:cssFiles},null,2));
 console.log('Página montada. '+mediaCache.size+' imagens originais; '+cssFiles.length+' folhas de estilo.');
