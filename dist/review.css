@@ -491,3 +491,9 @@
 #avaliacoes .review-heading{color:#3c342b;font:700 29px/1.3 'Sora',Arial,sans-serif;max-width:650px;margin-inline:auto}
 #oferta .plan-card{box-shadow:none;border-radius:10px}
 @media(max-width:600px){.hero h1{font-size:27px;line-height:1.3}.hero .hero-main-image{max-width:360px}#bonus .center-heading h2{font-size:26px}#bonus .bonus-card h3{font-size:20px}#bonus .bonus-card{grid-template-columns:36% minmax(0,1fr)}#bonus .bonus-card:nth-child(2){grid-template-columns:minmax(0,1fr) 36%}#bonus .bonus-app-preview{padding:10px 7px}.bonus-phone{border-width:4px;padding:12px 5px 9px}.bonus-phone>span{font-size:9px}.bonus-phone img{height:45px}.bonus-phone small{font-size:7px}#avaliacoes .review-heading{font-size:25px}}
+/* Third section: give the recipe CTA breathing room and a gentle pulse. */
+#receitas .elementor-widget-button{margin-top:38px;margin-bottom:18px}
+#receitas .elementor-button-wrapper{padding:10px 8px}
+#receitas .elementor-button{animation:recipes-cta-pulse 2s ease-in-out infinite;transform-origin:center}
+@keyframes recipes-cta-pulse{0%,100%{transform:scale(1);box-shadow:0 0 0 0 #51692725}50%{transform:scale(1.035);box-shadow:0 0 0 9px #51692700,0 5px 18px #51692730}}
+@media(prefers-reduced-motion:reduce){#receitas .elementor-button{animation:none}}
