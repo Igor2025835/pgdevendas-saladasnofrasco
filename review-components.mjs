@@ -1,5 +1,6 @@
 const icon=name=>`<svg aria-hidden="true"><use href="#${name}"/></svg>`;
 export function reviewHero(html){
+ html=html.replace(/<h1>[\s\S]*?<\/h1>/,'<h1>60 receitas de saladas <em>saborosas e rápidas</em> para teres sempre em casa, que nem parecem “comida de dieta”.</h1>');
  const oldSubtitle=html.match(/<p class="hero-description">[\s\S]*?<\/p>/)?.[0]||'';
  const subtitle='<p class="hero-description">Crie saladas <strong>nutritivas, saudáveis e cheias de sabor</strong>, que ajudam a emagrecer, para toda a semana em apenas <strong>20 minutos.</strong></p>';
  html=html.replace(oldSubtitle,'').replace(/(<\/button>)(\s*<div class="hero-action">)/,'$1'+subtitle+'$2');
@@ -62,7 +63,7 @@ export function reviewContents(html,source,nodes){
  html=html.replace(original,contentsBenefits());
  html=html.replace(/<img\b[^>]*src="assets\/original-2\.webp"[^>]*>/,'<img class="contents-fridge-image" src="assets/conservacao-pt-20min-v1-480.webp" srcset="assets/conservacao-pt-20min-v1-480.webp 480w, assets/conservacao-pt-20min-v1-800.webp 800w" sizes="(max-width: 600px) calc(100vw - 32px), 500px" width="800" height="800" alt="Frascos de salada no frigorífico: camadas para preservar a frescura e 20 minutos para preparar as saladas da semana" loading="lazy" decoding="async">');
  html=insertAfterContentsWidget(html,'4f85e9fd',contentsVideo());
- return placeContentsApp(html);
+ return html;
 }
 export function makeCategories(html){
  const cards=[...html.matchAll(/<article class="category-card">[\s\S]*?<\/article>/g)].map(m=>m[0].replace('<article class="category-card">','<article class="category-card" role="listitem">')).join('');
