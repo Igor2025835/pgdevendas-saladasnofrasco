@@ -1,6 +1,6 @@
 # Oferta de saída
 
-- Página principal: mantém os 13 botões de compra e o preço de 11,90 €.
+- Página principal: 12 botões levam à seção de planos (`#oferta`); apenas o botão de compra do plano abre o checkout. O preço é de 11,90 €.
 - `/backredirect`: plano completo por 7,90 €, incluindo os conteúdos e os bónus do plano. Todos os botões usam `off=j1f0nk4j&checkoutMode=10`.
 - Origem dos pedidos: os dois botões dessa página e o botão do pop-up enviam `src=backredirect`. `recovery-attribution.js` conserva essa etiqueta mesmo quando a UTMify atualiza os links, preservando UTMs, SCK e XCOD. Não escreve `src` no URL da página nem no armazenamento global da UTMify, para não marcar compras posteriores da página principal como recuperação.
 - Ao voltar: navega diretamente para `/backredirect`, sem pop-up.

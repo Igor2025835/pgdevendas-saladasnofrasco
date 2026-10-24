@@ -91,13 +91,14 @@ result=result.replace('</head>',trackingHead+'\n</head>');
 result=result.replaceAll('7 dias de garantia','14 dias de garantia').replaceAll('7 dias de garantia incondicional','14 dias de garantia incondicional').replace('</head>',`<link rel="stylesheet" href="review.css?v=${reviewVersion}"></head>`);
 result=result.replace('src="original-local.js"',`src="original-local.js?v=${scriptVersion}"`);
 result=localizePtPt(result);
-// All purchase CTAs proceed directly to the same checkout.
+// Sales CTAs lead to the plans; the plan's purchase button opens checkout.
 const checkoutUrl='https://pay.hotmart.com/O108101669E?checkoutMode=10';
 const afterOffer=result.indexOf('</section>',result.indexOf('id="oferta"'))+'</section>'.length;
 result=result.replace(/<a\b([^>]*)>([\s\S]*?)<\/a>/g,(all,attrs,body,offset)=>{
  const classes=attrs.match(/\bclass="([^"]*)"/)?.[1].split(/\s+/)||[];
  if(!classes.some(name=>['button','elementor-button','text-link'].includes(name)))return all;
- const updatedAttrs=/\bhref="[^"]*"/.test(attrs)?attrs.replace(/\bhref="[^"]*"/,`href="${checkoutUrl}"`):attrs+` href="${checkoutUrl}"`;
+ const destination=classes.includes('plan-checkout')?checkoutUrl:'#oferta';
+ const updatedAttrs=/\bhref="[^"]*"/.test(attrs)?attrs.replace(/\bhref="[^"]*"/,`href="${destination}"`):attrs+` href="${destination}"`;
  if(offset>=afterOffer){
   const icon=body.match(/<svg\b[\s\S]*?<\/svg>/)?.[0]||'';
   body='Garantir o meu acesso'+icon;
