@@ -2,22 +2,25 @@
 
 - Página principal: mantém os 13 botões de compra e o preço de 11,90 €.
 - `/backredirect`: plano completo por 7,90 €, incluindo os conteúdos e os bónus do plano. Todos os botões usam `off=j1f0nk4j&checkoutMode=10`.
-- Pop-up: usa a mesma oferta e contém uma ligação opcional para a página completa.
+- Ao voltar: navega diretamente para `/backredirect`, sem pop-up.
+- Pop-up: só no computador, como aproximação de intenção de fecho ao sair com o rato pelo topo direito. Usa a mesma oferta e contém uma ligação para a página completa.
 
 ## Acionamento conservador
 
-O pop-up só é elegível depois de 12 segundos e de uma interação real fora de controlos interativos. É criada uma única entrada de histórico, com o mesmo URL. Só o regresso dessa entrada para a entrada identificada como base abre o diálogo. O carregamento, scroll, movimentos do rato, mudança de separador e fecho do separador não abrem a oferta.
+O primeiro gesto real na página (fora de uma ligação ou de um campo) pode criar uma única entrada de histórico com o mesmo URL. Não há espera de 12 segundos. Só o regresso dessa entrada para a entrada identificada como base navega para a oferta. A navegação usa `location.replace`, preserva os parâmetros da campanha e evita um ciclo de regresso à página principal. Guardas já existentes são reaproveitadas após recarregar, sem adicionar outra entrada.
 
-Não abre durante a reprodução da aula, com outro diálogo aberto, após um clique no checkout, ao regressar do checkout, em recarregamentos nem em navegação interna por âncoras. Aparece no máximo uma vez por sessão do separador. Se o armazenamento da sessão não estiver disponível, não abre. Fechar o diálogo ou escolher continuar a sair prossegue o pedido original de Voltar; não acrescenta novas entradas nem impede a saída. Loops decorativos silenciosos não contam como reprodução da aula.
+O pop-up exige computador com rato, largura mínima de 900 px, cinco segundos na página e uma saída real do ponteiro pelo topo direito, precedida por movimento recente dentro da página. Há uma confirmação de 200 ms, cancelada ao regressar com o rato, perder o foco, mudar de separador ou clicar numa ligação. Não aparece durante a reprodução da aula, com outro diálogo aberto ou depois de iniciar o checkout. Não usa timers isolados, scroll invertido nem perda de foco como gatilhos. O botão Voltar tem prioridade e abre a página.
 
-Uma tentativa de saída antes da interação mínima segue normalmente. Os browsers não permitem um diálogo HTML personalizado no fecho do separador; não é usado `beforeunload` nem um alerta nativo de confirmação.
+Os dois fluxos são limitados à sessão do separador e ficam desativados após recusar a oferta, visitar a página de recuperação ou iniciar o checkout. O armazenamento indisponível falha sem acionar a oferta. A página de recuperação não instala uma nova guarda. Fechar o pop-up não força navegação e não impede fechar a guia.
+
+O movimento do rato é apenas uma heurística: o clique exato no X da guia pertence à interface do navegador e não é acessível ao site. Não é usado `beforeunload` nem um alerta nativo de confirmação. Sem qualquer interação na página, o navegador pode ignorar entradas de histórico criadas por scripts; não se promete capturar todas as saídas.
 
 ## Fontes e validação
 
 - Marcação: `reference-original/exit-offer.html` e `reference-original/backredirect.html`.
-- Comportamento: `dist/exit-offer.js`.
-- Estilos: `dist/review.css`.
+- Comportamento: `dist/exit-offer.js` e `dist/backredirect.js`.
+- Estilos: `dist/review.css` e `dist/backredirect.css`.
 - Gerar as páginas: `node --use-system-ca build-reference.mjs`.
 - Testes: `node --test tests/exit-offer.test.mjs`.
 
-Os scripts UTMify e Clarity são conservados em ambas as páginas. Não é adicionado um novo pixel nem um disparo manual de checkout. As imagens usam os ficheiros já existentes no projeto. O desconto é de 4 €; não há um contador nem alegações de disponibilidade limitada.
+Os scripts UTMify e Clarity são conservados em ambas as páginas. Não é adicionado um novo pixel nem um disparo manual de checkout. A nova imagem dos frascos foi exportada em WebP com larguras de 640 e 1200 px. O desconto é de 4 €; não há contador nem alegações de disponibilidade limitada. A página foi encurtada com a oferta e o botão na primeira dobra e uma lista de conteúdos e bónus abaixo.
