@@ -84,12 +84,6 @@ let head=current.slice(0,current.indexOf('<body>'));
 head=head.replace('<link rel="stylesheet" href="redesign.css">',cssFiles.map(file=>`<link rel="stylesheet" href="${file}">`).join('')+'<link rel="stylesheet" href="redesign.css">');
 head=head.replace('<script src="redesign.js" defer></script>','<link rel="stylesheet" href="original-local.css"><script src="original-local.js" defer></script>');
 let result=head+'<body class="elementor-kit-5"><a class="skip-link" href="#conteudo">Pular para o conteúdo</a>'+header+'<main id="conteudo">'+hero+'<div class="elementor elementor-11737 original-reference">'+contents+addPlanCta(salads,'Quero aprender essas saladas')+sauces+addPlanCta(lesson,'Quero acesso às aulas')+addPlanCta(bonuses,'Quero o plano completo')+addPlanCta(pain,'Quero começar')+offer+addPlanCta(author,'Ver os planos')+addPlanCta(testimonials,'Garantir o meu acesso')+addPlanCta(faq,'Escolher meu plano')+'</div></main>'+footer+dialog+sprite+'</body></html>';
-// Keep every sales CTA pointed at the plans; checkout destinations are configured separately.
-result=result.replace(/<a\b[^>]*>/g,tag=>{
- const classes=tag.match(/\bclass="([^"]*)"/)?.[1].split(/\s+/)||[];
- if(classes.includes('plan-checkout')||!classes.some(name=>['button','elementor-button','text-link'].includes(name)))return tag;
- return /\bhref="[^"]*"/.test(tag)?tag.replace(/\bhref="[^"]*"/,'href="#oferta"'):tag.replace(/>$/,' href="#oferta">');
-});
 const reviewVersion=createHash('sha256').update(await fs.readFile('dist/review.css')).digest('hex').slice(0,10);
 const scriptVersion=createHash('sha256').update(await fs.readFile('dist/original-local.js')).digest('hex').slice(0,10);
 const trackingHead=await fs.readFile('reference-original/tracking-head.html','utf8');
@@ -97,12 +91,18 @@ result=result.replace('</head>',trackingHead+'\n</head>');
 result=result.replaceAll('7 dias de garantia','14 dias de garantia').replaceAll('7 dias de garantia incondicional','14 dias de garantia incondicional').replace('</head>',`<link rel="stylesheet" href="review.css?v=${reviewVersion}"></head>`);
 result=result.replace('src="original-local.js"',`src="original-local.js?v=${scriptVersion}"`);
 result=localizePtPt(result);
-// Visitors who have already passed the offer can proceed directly to checkout.
+// All purchase CTAs proceed directly to the same checkout.
+const checkoutUrl='https://pay.hotmart.com/O108101669E?checkoutMode=10';
 const afterOffer=result.indexOf('</section>',result.indexOf('id="oferta"'))+'</section>'.length;
-result=result.slice(0,afterOffer)+result.slice(afterOffer).replace(/<a\b([^>]*\bclass="[^"]*\b(?:button|text-link)\b[^"]*"[^>]*)>([\s\S]*?)<\/a>/g,(all,attrs,body)=>{
- if(!attrs.includes('href="#oferta"'))return all;
- const icon=body.match(/<svg\b[\s\S]*?<\/svg>/)?.[0]||'';
- return '<a'+attrs.replace('href="#oferta"','href="https://pay.hotmart.com/O108101669E?checkoutMode=10"')+'>Garantir o meu acesso'+icon+'</a>';
+result=result.replace(/<a\b([^>]*)>([\s\S]*?)<\/a>/g,(all,attrs,body,offset)=>{
+ const classes=attrs.match(/\bclass="([^"]*)"/)?.[1].split(/\s+/)||[];
+ if(!classes.some(name=>['button','elementor-button','text-link'].includes(name)))return all;
+ const updatedAttrs=/\bhref="[^"]*"/.test(attrs)?attrs.replace(/\bhref="[^"]*"/,`href="${checkoutUrl}"`):attrs+` href="${checkoutUrl}"`;
+ if(offset>=afterOffer){
+  const icon=body.match(/<svg\b[\s\S]*?<\/svg>/)?.[0]||'';
+  body='Garantir o meu acesso'+icon;
+ }
+ return '<a'+updatedAttrs+'>'+body+'</a>';
 });
 await fs.writeFile('dist/index.html',result);
 await fs.writeFile('reference-original/build-report.json',JSON.stringify({source:base,sections:["hero com subtítulo atualizado","conteúdo original + bônus do app","seis saladas em duas colunas + carrossel infinito de estilos","dez conversas ilustrativas: seis Instagram e quatro WhatsApp","molhos em blocos","método unificado: aula prévia e três blocos ilustrados","três bônus locais","dificuldades em vermelho","planos de €4,90 e €7,90","autoria original","FAQ original atualizado"],video,media:[...mediaCache.values()],styles:cssFiles},null,2));
