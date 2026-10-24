@@ -104,6 +104,30 @@ result=result.replace(/<a\b([^>]*)>([\s\S]*?)<\/a>/g,(all,attrs,body,offset)=>{
  }
  return '<a'+updatedAttrs+'>'+body+'</a>';
 });
+// Keep the reduced offer separate from the standard checkout normalizer.
+const discountedCheckout='https://pay.hotmart.com/O108101669E?off=j1f0nk4j&amp;checkoutMode=10';
+const exitOffer=await fs.readFile('reference-original/exit-offer.html','utf8');
+const exitVersion=createHash('sha256').update(await fs.readFile('dist/exit-offer.js')).digest('hex').slice(0,10);
+result=result.replace('</body>',exitOffer+`<script src="exit-offer.js?v=${exitVersion}" defer></script></body>`);
 await fs.writeFile('dist/index.html',result);
+const reducedOffer=result.match(/<section class="purchase-section purchase-plans"[\s\S]*?<\/section>/)?.[0]
+ .replaceAll(checkoutUrl,discountedCheckout)
+ .replace('<strong>11</strong><span class="plan-price-cents">,90</span>','<strong>7</strong><span class="plan-price-cents">,90</span>')
+ .replace('Aula de montagem, preparação e conservação','Tutorial de montagem, preparação e conservação')
+ .replace('Quero o plano completo <svg','Garantir tudo por 7,90 € <svg')
+ .replace('<span class="plan-highlight">A EXPERIÊNCIA COMPLETA</span>','<span class="plan-highlight">TUDO INCLUÍDO · POUPAS 4 €</span>')
+ .replace('<span>PAGAMENTO ÚNICO</span>','<span>PAGAMENTO ÚNICO · <del>11,90 €</del></span>');
+if(!reducedOffer||!reducedOffer.includes('<strong>7</strong>'))throw Error('Missing reduced offer');
+const backHead=result.slice(0,result.indexOf('<body'))
+ .replace('<head>','<head><base href="/"><meta name="robots" content="noindex, follow">')
+ .replace(/<title>[\s\S]*?<\/title>/,'<title>O plano completo por 7,90 € — Saladas Saborosas no Frasco</title>')
+ .replace(/<script src="original-local.js[^"]*" defer><\/script>/,'');
+const backPage=(await fs.readFile('reference-original/backredirect.html','utf8'))
+ .replace('<!-- HEAD -->',backHead)
+ .replace('<!-- HEADER -->',header)
+ .replace('<!-- OFFER -->',reducedOffer)
+ .replace('<!-- SPRITE -->',sprite);
+await fs.mkdir('dist/backredirect',{recursive:true});
+await fs.writeFile('dist/backredirect/index.html',backPage);
 await fs.writeFile('reference-original/build-report.json',JSON.stringify({source:base,sections:["hero com subtítulo atualizado","conteúdo original + bônus do app","seis saladas em duas colunas + carrossel infinito de estilos","dez conversas ilustrativas: seis Instagram e quatro WhatsApp","molhos em blocos","método unificado: aula prévia e três blocos ilustrados","três bônus locais","dificuldades em vermelho","planos de €4,90 e €7,90","autoria original","FAQ original atualizado"],video,media:[...mediaCache.values()],styles:cssFiles},null,2));
 console.log('Página montada. '+mediaCache.size+' imagens originais; '+cssFiles.length+' folhas de estilo.');
