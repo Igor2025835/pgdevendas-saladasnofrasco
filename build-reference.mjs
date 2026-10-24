@@ -107,7 +107,9 @@ result=result.replace(/<a\b([^>]*)>([\s\S]*?)<\/a>/g,(all,attrs,body,offset)=>{
 // Keep the reduced offer separate from the standard checkout normalizer.
 const exitOffer=await fs.readFile('reference-original/exit-offer.html','utf8');
 const exitVersion=createHash('sha256').update(await fs.readFile('dist/exit-offer.js')).digest('hex').slice(0,10);
-result=result.replace('</body>',exitOffer+`<script src="exit-offer.js?v=${exitVersion}" defer></script></body>`);
+const attributionVersion=createHash('sha256').update(await fs.readFile('dist/recovery-attribution.js')).digest('hex').slice(0,10);
+const attributionScript=`<script src="recovery-attribution.js?v=${attributionVersion}" defer></script>`;
+result=result.replace('</body>',exitOffer+attributionScript+`<script src="exit-offer.js?v=${exitVersion}" defer></script></body>`);
 await fs.writeFile('dist/index.html',result);
 const backHead=result.slice(0,result.indexOf('<body'))
  .replace('<head>','<head><base href="/"><meta name="robots" content="noindex, follow">')
@@ -118,7 +120,7 @@ const backCssVersion=createHash('sha256').update(await fs.readFile('dist/backred
 const backPage=(await fs.readFile('reference-original/backredirect.html','utf8'))
  .replace('<!-- HEAD -->',backHead.replace('</head>',`<link rel="stylesheet" href="backredirect.css?v=${backCssVersion}"></head>`))
  .replace('<!-- SPRITE -->',sprite)
- .replace('<!-- PAGE SCRIPT -->',`<script src="backredirect.js?v=${backScriptVersion}" defer></script>`);
+ .replace('<!-- PAGE SCRIPT -->',attributionScript+`<script src="backredirect.js?v=${backScriptVersion}" defer></script>`);
 await fs.mkdir('dist/backredirect',{recursive:true});
 await fs.writeFile('dist/backredirect/index.html',backPage);
 await fs.writeFile('reference-original/build-report.json',JSON.stringify({source:base,sections:["hero com subtítulo atualizado","conteúdo original + bônus do app","seis saladas em duas colunas + carrossel infinito de estilos","dez conversas ilustrativas: seis Instagram e quatro WhatsApp","molhos em blocos","método unificado: aula prévia e três blocos ilustrados","três bônus locais","dificuldades em vermelho","planos de €4,90 e €7,90","autoria original","FAQ original atualizado"],video,media:[...mediaCache.values()],styles:cssFiles},null,2));
