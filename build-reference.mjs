@@ -110,7 +110,8 @@ const exitOffer=await fs.readFile('reference-original/exit-offer.html','utf8');
 const exitVersion=createHash('sha256').update(await fs.readFile('dist/exit-offer.js')).digest('hex').slice(0,10);
 const attributionVersion=createHash('sha256').update(await fs.readFile('dist/recovery-attribution.js')).digest('hex').slice(0,10);
 const attributionScript=`<script src="recovery-attribution.js?v=${attributionVersion}" defer></script>`;
-result=result.replace('</body>',exitOffer+attributionScript+`<script src="exit-offer.js?v=${exitVersion}" defer></script></body>`);
+const heroVersion=createHash('sha256').update(await fs.readFile('dist/hero-media.js')).digest('hex').slice(0,10);
+result=result.replace('</body>',exitOffer+`<script src="hero-media.js?v=${heroVersion}" defer></script>`+attributionScript+`<script src="exit-offer.js?v=${exitVersion}" defer></script></body>`);
 await fs.writeFile('dist/index.html',result);
 const backHead=result.slice(0,result.indexOf('<body'))
  .replace('<head>','<head><base href="/"><meta name="robots" content="noindex, follow">')
