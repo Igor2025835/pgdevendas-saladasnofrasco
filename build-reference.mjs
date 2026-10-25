@@ -127,3 +127,4 @@ await fs.mkdir('dist/backredirect',{recursive:true});
 await fs.writeFile('dist/backredirect/index.html',backPage);
 await fs.writeFile('reference-original/build-report.json',JSON.stringify({source:base,sections:["hero com subtítulo atualizado","conteúdo original + bônus do app","seis saladas em duas colunas + carrossel infinito de estilos","dez conversas ilustrativas: seis Instagram e quatro WhatsApp","molhos em blocos","método unificado: aula prévia e três blocos ilustrados","três bônus locais","dificuldades em vermelho","planos de €4,90 e €7,90","autoria original","FAQ original atualizado"],video,media:[...mediaCache.values()],styles:cssFiles},null,2));
 console.log('Página montada. '+mediaCache.size+' imagens originais; '+cssFiles.length+' folhas de estilo.');
+await import('./build-v2.mjs');

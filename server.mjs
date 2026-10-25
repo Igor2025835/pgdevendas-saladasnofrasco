@@ -8,7 +8,7 @@ const types = { '.html': 'text/html; charset=utf-8', '.css': 'text/css; charset=
 const server = http.createServer(async (req, res) => {
   try {
     const url = new URL(req.url, 'http://localhost');
-    const pathname = /^\/backredirect\/?$/.test(url.pathname) ? '/backredirect/index.html' : url.pathname === '/' ? '/index.html' : url.pathname;
+    const pathname = /^\/(backredirect|v2)\/?$/.test(url.pathname) ? url.pathname.replace(/\/$/,'')+'/index.html' : url.pathname === '/' ? '/index.html' : url.pathname;
     const filename = path.resolve(root, '.' + decodeURIComponent(pathname));
     if (!filename.startsWith(root + path.sep)) { res.writeHead(403); res.end(); return; }
     const data = await readFile(filename);
