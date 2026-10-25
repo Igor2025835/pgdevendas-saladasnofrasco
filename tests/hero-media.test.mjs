@@ -27,7 +27,7 @@ test('load completion offscreen does not request media until the hero enters vie
 test('mobile and data-saving visitors get the smaller file',()=>{
  for(const options of [{mobile:true},{saveData:true}]){const p=page(options);p.visible();p.load();p.paint();p.idle();assert.equal(p.video.src,'small.mp4');}
 });
-test('playback is muted and inline, and the poster remains until actual frames play',()=>{
+test('playback is muted and inline, and appears only when actual frames play',()=>{
  const p=page();p.visible();p.load();p.paint();p.idle();assert.ok(p.video.muted&&p.video.defaultMuted&&p.video.playsInline);assert.equal(p.classes.has('is-playing'),false);p.emit('video','playing');assert.equal(p.classes.has('is-playing'),true);
 });
 test('leaving the screen or hiding the tab pauses decoding; returning resumes without reloading',()=>{
@@ -36,7 +36,7 @@ test('leaving the screen or hiding the tab pauses decoding; returning resumes wi
 test('a hidden tab never starts downloading the video',()=>{
  const p=page();p.doc.hidden=true;p.visible();p.load();p.paint();p.idle();assert.equal(p.video.src,'');p.doc.hidden=false;p.emit('document','visibilitychange');assert.equal(p.video.loads,1);
 });
-test('blocked autoplay and media errors retain the image without adding visible controls',async()=>{
+test('blocked autoplay and media errors keep the reserved area clear without adding controls',async()=>{
  const p=page({blockAutoplay:true});p.visible();p.load();p.paint();p.idle();await Promise.resolve();assert.equal(p.classes.has('is-playing'),false);
  const q=page();q.visible();q.load();q.paint();q.idle();q.emit('video','playing');q.emit('video','error');assert.equal(q.classes.has('is-playing'),false);const plays=q.video.plays;q.visible();assert.equal(q.video.plays,plays);
 });
@@ -46,12 +46,12 @@ test('bfcache restores visible playback without fetching another source',()=>{
 test('older browsers use viewport checks and a delayed fallback after paint',()=>{
  const p=page({noObserver:true,noIdle:true});p.load();p.paint();assert.equal(p.video.src,'');p.idle();assert.equal(p.video.loads,1);p.video.rect={top:900,bottom:1400};const pauses=p.video.pauses;p.emit('window','scroll');assert.ok(p.video.pauses>pauses);
 });
-test('generated hero reserves the old image ratio and has no eager video source',()=>{
+test('generated hero reserves the native video ratio without a cover image or eager source',()=>{
  const html=fs.readFileSync(new URL('../dist/index.html',import.meta.url),'utf8');
  const video=html.match(/<video\b[^>]*id="hero-preview-video"[^>]*>/)?.[0];assert.ok(video);
- assert.ok(!/\ssrc=/.test(video));for(const token of ['autoplay','muted','loop','playsinline','preload="none"','width="819"','height="1024"'])assert.ok(video.includes(token),token);
- assert.ok(html.includes('class="hero-main-image hero-media"'));assert.ok(html.includes('class="hero-video-poster"'));assert.ok(html.includes('fetchpriority="high"'));
- const css=fs.readFileSync(new URL('../dist/review.css',import.meta.url),'utf8');assert.ok(css.includes('.hero .hero-media{position:relative;aspect-ratio:4/5;overflow:hidden}'));
+ assert.ok(!/\s(?:src|poster)=/.test(video));for(const token of ['autoplay','muted','loop','playsinline','preload="none"','width="1080"','height="1584"'])assert.ok(video.includes(token),token);
+ assert.ok(html.includes('class="hero-main-image hero-media"'));assert.ok(!html.includes('class="hero-video-poster"'));
+ const css=fs.readFileSync(new URL('../dist/review.css',import.meta.url),'utf8');assert.ok(css.includes('.hero .hero-media{position:relative;aspect-ratio:15/22;overflow:hidden}'));assert.match(css,/\.hero-media \.hero-preview-video\{[^}]*object-fit:contain;/);
  for(const filename of ['hero-saladas-preparacao-v1-480.mp4','hero-saladas-preparacao-v1-640.mp4']){
   const file=fs.readFileSync(new URL('../dist/assets/'+filename,import.meta.url));assert.ok(file.length<6000000);assert.ok(file.indexOf(Buffer.from('moov'))<file.indexOf(Buffer.from('mdat')));
  }

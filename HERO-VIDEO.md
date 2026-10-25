@@ -11,13 +11,13 @@ O vídeo completo foi convertido para MP4 H.264 (Main), 24 fps, CRF 28, preset s
 
 ## Carregamento
 
-- A imagem responsiva anterior continua a ser a capa e mantém a prioridade de carregamento.
-- A moldura mantém as dimensões, posição, margens e cantos anteriores; a proporção 4:5 reserva o espaço antes de carregar o vídeo. O enquadramento fica alinhado pelo topo para conservar o texto que já vem no vídeo.
+- A imagem anterior foi retirada. O vídeo não tem imagem de capa nem sobreposição antes da reprodução.
+- A moldura mantém a largura responsiva, margens e cantos anteriores; a proporção original 15:22 (1080 × 1584) reserva o espaço antes de carregar o vídeo. `object-fit: contain` mostra o enquadramento completo, sem cortes.
 - O HTML não contém um `src` de vídeo nem elementos `source`: os ficheiros não são descarregados durante a renderização inicial.
 - `hero-media.js` espera por `window.load`, duas oportunidades de pintura e um período ocioso, com fallback temporizado. Só então pode associar a fonte, se a hero estiver visível.
 - Telemóveis e ligações com poupança de dados usam o MP4 menor; computadores usam a versão de 640 px. Não se descarregam as duas versões.
-- Autoplay mudo, loop e playsinline, sem controlos ou sobreposições adicionais. A capa só dá lugar ao vídeo no evento `playing`.
-- Pausa fora do ecrã e em separadores ocultos; retoma ao regressar, incluindo restauração do histórico. Erros ou bloqueio de autoplay conservam a imagem.
+- Autoplay mudo, loop e playsinline, sem controlos ou sobreposições adicionais. O vídeo fica visível no evento `playing`; até lá, o espaço reservado fica livre.
+- Pausa fora do ecrã e em separadores ocultos; retoma ao regressar, incluindo restauração do histórico. Erros ou bloqueio de autoplay mantêm o espaço reservado livre.
 
 ## Validação
 

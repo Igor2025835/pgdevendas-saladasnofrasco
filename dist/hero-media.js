@@ -1,4 +1,4 @@
-// The responsive image paints first. No video URL is attached until the page
+// Reserve the video's native aspect ratio. No video URL is attached until the page
 // has loaded, had a chance to paint, and the hero is actually on screen.
 (() => {
   const video = document.querySelector('#hero-preview-video');
@@ -20,7 +20,7 @@
       video.load();
     }
     video.play()?.catch(() => {
-      // Keep the existing image when the browser blocks autoplay.
+      // Keep the reserved area clear when the browser blocks autoplay.
       frame.classList.remove('is-playing');
     });
   };
