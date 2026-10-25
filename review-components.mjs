@@ -1,14 +1,6 @@
 const icon=name=>`<svg aria-hidden="true"><use href="#${name}"/></svg>`;
-export function reviewHero(html){
- html=html.replace(/<h1>[\s\S]*?<\/h1>/,'<h1>60 receitas de saladas <em>saborosas e rápidas</em> para teres sempre em casa, que nem parecem “comida de dieta”.</h1>');
- const oldSubtitle=html.match(/<p class="hero-description">[\s\S]*?<\/p>/)?.[0]||'';
- const subtitle='<p class="hero-description">Crie saladas <strong>nutritivas, saudáveis e cheias de sabor</strong>, que ajudam a emagrecer, para toda a semana em apenas <strong>20 minutos.</strong></p>';
- html=html.replace(oldSubtitle,'').replace(/(<\/button>)(\s*<div class="hero-action">)/,'$1'+subtitle+'$2');
- html=html.replace(/<p class="hero-promise">[\s\S]*?<\/p>/,'').replace('<p>Coma melhor sem viver de alface e tomate.</p>','');
- if(!html.includes('class="hero-badge-wrap"'))html=html.replace('</h1>','</h1>'+"<div class=\"hero-badge-wrap\"><span class=\"hero-badge\"><svg aria-hidden=\"true\"><use href=\"#check\"/></svg>Mantenha durante 7 dias sem murchar.</span></div>");
- html=html.replace(/<button class="hero-video[\s\S]*?<\/button>/,'<div class="hero-main-image hero-media"><video class="hero-preview-video" id="hero-preview-video" width="1080" height="1584" autoplay muted loop playsinline preload="none" disablepictureinpicture aria-label="Preparação de saladas deliciosas em frascos, sem som" data-src-small="assets/hero-saladas-preparacao-v1-480.mp4" data-src-large="assets/hero-saladas-preparacao-v1-640.mp4"></video></div>');
- html=html.replace(/<div class="trust-line">[\s\S]*?<\/div>/,'');
- return html.replace('7 dias de garantia','14 dias de garantia').replace('App incluído','App no plano completo');
+export function reviewHero(){
+ return '<section class="hero"><div class="wrap"><h1>Nunca mais vais querer comer salada <em>de outra forma.</em></h1><p class="hero-subheadline">60 receitas de saladas <strong>saborosas e rápidas</strong> que sabem melhor do que fast-food e ajudam a emagrecer.</p><div class="hero-main-image hero-media"><video class="hero-preview-video" id="hero-preview-video" width="1080" height="1584" autoplay muted loop playsinline preload="none" disablepictureinpicture aria-label="Preparação de saladas deliciosas em frascos, sem som" data-src-small="assets/hero-saladas-preparacao-v1-480.mp4" data-src-large="assets/hero-saladas-preparacao-v1-640.mp4"></video></div><div class="hero-preservation">'+icon('clock')+'<p><strong>Prepara uma vez.</strong> Saladas para toda a semana, conservadas e sem murcharem.</p></div><div class="hero-action"><a class="button button-primary" href="#oferta">Quero as minhas saladas saborosas'+icon('arrow')+'</a></div></div></section>';
 }
 export function reviewMethod(html){
  const photos=[['metodo-camadas-v1.png','Salada em frasco com grão, frango, vegetais e folhas em camadas'],['metodo-refeicao-v1.png','Salada com frango grelhado, quinoa e vegetais coloridos'],['metodo-molho-v1.png','Molho cremoso de ervas sobre uma salada generosa e colorida']];
@@ -25,7 +17,7 @@ export function reviewMethod(html){
  return updateMethodCallout(html).replace(/<p class="small-note centered">[\s\S]*?<\/p>/,'');
 }
 export function contentsBenefits(){
- const items=[['book','<strong>+60 receitas</strong> de saladas deliciosas e saudáveis.'],['spark','<strong>Molhos irresistíveis</strong> para variar o sabor.'],['clock','Saladas da semana prontas em <strong>20 minutos.</strong>'],['jar','Monte com <strong>qualquer frasco</strong> que já tenha em casa.'],['shield','A ordem das camadas para manter o frescor por <strong>até 7 dias,</strong> conforme a receita.'],['leaf','<strong>Como conservar</strong> e guardar cada salada.'],['check','<strong>Passo a passo</strong> de preparação e montagem.']];
+ const items=[['book','<strong>+60 receitas</strong> saborosas e saudáveis.'],['spark','<strong>Molhos irresistíveis</strong> para variar.'],['clock','Saladas da semana em <strong>20 minutos.</strong>'],['shield','Frescura e conservação <strong>até 7 dias,</strong> sem complicações.'],['check','Montagem <strong>passo a passo.</strong>']];
  return '<div class="contents-benefits contents-benefits-list" role="list" aria-label="O que está incluído">'+items.map(([i,copy])=>'<article class="contents-benefit" role="listitem"><span class="contents-benefit-icon">'+icon(i)+'</span><p>'+copy+'</p></article>').join('')+'</div>';
 }
 export function contentsAppBonus(){
@@ -36,18 +28,25 @@ export function placeContentsApp(html){
  return insertAfterContentsWidget(html,'9520a06',contentsAppBonus());
 }
 function insertAfterContentsWidget(html,id,addition){
+ const {end}=contentsWidgetBounds(html,id);
+ return html.slice(0,end)+addition+html.slice(end);
+}
+function contentsWidgetBounds(html,id){
  const dataIndex=html.indexOf('data-id="'+id+'"');
  const start=html.lastIndexOf('<div ',dataIndex);
  if(dataIndex<0||start<0)throw Error('Contents widget missing: '+id);
  let depth=0;
  for(const token of html.slice(start).matchAll(/<\/?div\b[^>]*>/g)){
   depth+=token[0].startsWith('</')?-1:1;
-  if(!depth){const end=start+token.index+token[0].length;return html.slice(0,end)+addition+html.slice(end);}
+  if(!depth)return {start,end:start+token.index+token[0].length};
  }
  throw Error('Contents widget is unclosed: '+id);
 }
 function contentsVideo(){
  return '<div class="contents-video-frame"><video class="contents-video" width="432" height="768" autoplay muted loop playsinline preload="none" disablepictureinpicture poster="assets/conteudo-saladas-poster-v1.webp" data-src="assets/conteudo-saladas-loop-v1.mp4" aria-label="Saladas em frascos e uma salada servida com molho"></video></div>';
+}
+export function contentsTasteSection(){
+ return '<section class="contents-taste-section" id="saladas-com-sabor" aria-labelledby="taste-title"><div class="review-wrap"><h2 id="taste-title">Até quem não gosta de salada<br><strong>vai querer repetir.</strong></h2>'+contentsVideo()+'<div class="section-plan-cta"><a class="button button-primary" href="#oferta">Quero estas saladas'+icon('arrow')+'</a></div></div></section>';
 }
 export function updateMethodCallout(html){
  return html.replace('<p><strong>Cerca de 20 minutos para montar.</strong><br><em>E muita vontade de comer.</em></p>','<p><strong>Deixe as saladas deliciosas da semana prontas em <em>menos de 20 minutos.</em></strong><span class="method-preservation-note">E descubra como conservar sem murchar.</span></p>');
@@ -61,8 +60,10 @@ export function reviewContents(html,source,nodes){
  const original=source.slice(n.start,n.end).replace('Conservação de 7 dias','Orientações de conservação');
  if(!html.includes(original))throw Error('Contents list insertion marker missing');
  html=html.replace(original,contentsBenefits());
- html=html.replace(/<img\b[^>]*src="assets\/original-2\.webp"[^>]*>/,'<img class="contents-fridge-image" src="assets/conservacao-pt-20min-v1-480.webp" srcset="assets/conservacao-pt-20min-v1-480.webp 480w, assets/conservacao-pt-20min-v1-800.webp 800w" sizes="(max-width: 600px) calc(100vw - 32px), 500px" width="800" height="800" alt="Frascos de salada no frigorífico: camadas para preservar a frescura e 20 minutos para preparar as saladas da semana" loading="lazy" decoding="async">');
- html=insertAfterContentsWidget(html,'4f85e9fd',contentsVideo());
+ const videoSlot=contentsWidgetBounds(html,'9520a06');
+ html=html.slice(0,videoSlot.start).replace(/[ \t]+$/,'')+html.slice(videoSlot.end);
+ const image='<div class="contents-image-frame"><img class="contents-fridge-image" src="assets/conservacao-pt-20min-v1-480.webp" srcset="assets/conservacao-pt-20min-v1-480.webp 480w, assets/conservacao-pt-20min-v1-800.webp 800w" sizes="(max-width: 600px) calc(100vw - 32px), 500px" width="800" height="800" alt="Frascos de salada no frigorífico: camadas para preservar a frescura e 20 minutos para preparar as saladas da semana" loading="lazy" decoding="async"></div>';
+ html=insertAfterContentsWidget(html,'4f85e9fd',image);
  return html;
 }
 export function makeCategories(html){

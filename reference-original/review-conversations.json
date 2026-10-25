@@ -6,16 +6,16 @@
     "messages": [],
     "sizes": {
       "600": {
-        "file": "avaliacao-foto-01-v1-600.webp",
+        "file": "avaliacao-foto-01-out2026-600.webp",
         "width": 600,
         "height": 1066,
-        "bytes": 79624
+        "bytes": 115998
       },
       "1000": {
-        "file": "avaliacao-foto-01-v1-1000.webp",
+        "file": "avaliacao-foto-01-out2026-1000.webp",
         "width": 941,
         "height": 1672,
-        "bytes": 138490
+        "bytes": 238654
       }
     }
   },
@@ -26,16 +26,16 @@
     "messages": [],
     "sizes": {
       "600": {
-        "file": "avaliacao-foto-02-v1-600.webp",
+        "file": "avaliacao-foto-02-out2026-600.webp",
         "width": 600,
         "height": 1066,
-        "bytes": 92530
+        "bytes": 106370
       },
       "1000": {
-        "file": "avaliacao-foto-02-v1-1000.webp",
+        "file": "avaliacao-foto-02-out2026-1000.webp",
         "width": 941,
         "height": 1672,
-        "bytes": 162754
+        "bytes": 220510
       }
     }
   },
@@ -46,16 +46,16 @@
     "messages": [],
     "sizes": {
       "600": {
-        "file": "avaliacao-foto-03-v1-600.webp",
+        "file": "avaliacao-foto-03-out2026-600.webp",
         "width": 600,
         "height": 1066,
-        "bytes": 78414
+        "bytes": 87916
       },
       "1000": {
-        "file": "avaliacao-foto-03-v1-1000.webp",
+        "file": "avaliacao-foto-03-out2026-1000.webp",
         "width": 941,
         "height": 1672,
-        "bytes": 141066
+        "bytes": 174404
       }
     }
   },
@@ -66,16 +66,16 @@
     "messages": [],
     "sizes": {
       "600": {
-        "file": "avaliacao-foto-04-v1-600.webp",
+        "file": "avaliacao-foto-04-out2026-600.webp",
         "width": 600,
         "height": 1066,
-        "bytes": 77892
+        "bytes": 112902
       },
       "1000": {
-        "file": "avaliacao-foto-04-v1-1000.webp",
+        "file": "avaliacao-foto-04-out2026-1000.webp",
         "width": 941,
         "height": 1672,
-        "bytes": 132692
+        "bytes": 232036
       }
     }
   },
@@ -86,16 +86,16 @@
     "messages": [],
     "sizes": {
       "600": {
-        "file": "avaliacao-foto-05-v1-600.webp",
+        "file": "avaliacao-foto-05-out2026-600.webp",
         "width": 600,
         "height": 1066,
-        "bytes": 87084
+        "bytes": 109722
       },
       "1000": {
-        "file": "avaliacao-foto-05-v1-1000.webp",
+        "file": "avaliacao-foto-05-out2026-1000.webp",
         "width": 941,
         "height": 1672,
-        "bytes": 157646
+        "bytes": 229548
       }
     }
   },

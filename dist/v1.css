@@ -1,0 +1,30 @@
+/* V1-only adjustments: the alternative version and recovery page are untouched. */
+.sales-v1 .hero h1{font-size:38px;line-height:1.2;max-width:700px;margin:0 auto 23px;color:#173f34;font-weight:750}
+.sales-v1 .hero h1 em{color:#516927}
+.sales-v1 .hero-subheadline{font:600 23px/1.45 'Sora',Arial,sans-serif;color:#173f34;max-width:690px;margin:0 auto 26px;letter-spacing:-.025em}
+.sales-v1 .hero-subheadline strong{color:#c9510c;font-weight:750}
+.sales-v1 .hero .hero-media{margin-top:0}
+.sales-v1 .hero-preservation{display:flex;align-items:flex-start;gap:11px;width:min(100%,440px);margin:21px auto 25px;text-align:left;color:#c9510c}
+.sales-v1 .hero-preservation>svg{width:24px;height:24px;flex:none;margin-top:2px;color:#c9510c}
+.sales-v1 .hero-preservation p{font:400 14px/1.8 'Poppins',Arial,sans-serif;margin:0;color:#c9510c}
+.sales-v1 .hero-preservation strong{font-weight:700}
+.sales-v1 .contents-image-frame{width:min(100%,500px);margin:0 auto 24px}
+.sales-v1 .contents-image-frame .contents-fridge-image{display:block;width:100%;height:auto;aspect-ratio:1;border-radius:12px}
+.sales-v1 .contents-taste-section{padding:50px 0;background:#fff7e7;text-align:center}
+.sales-v1 .contents-taste-section h2{max-width:680px;margin:0 auto;font:400 30px/1.35 'Sora',Arial,sans-serif;letter-spacing:-.025em;color:#3c342b}
+.sales-v1 .contents-taste-section h2 strong{font-weight:750;color:#516927}
+.sales-v1 .contents-taste-section .contents-video-frame{margin:28px auto 0;width:min(100%,320px)}
+.sales-v1 .contents-taste-section .section-plan-cta{margin-top:28px}
+.sales-v1 #avaliacoes{background:#CBCEAB}
+.sales-v1 #camadas{background:#fff7e7}
+.sales-v1 #camadas .lesson-watch-heading{text-transform:none;max-width:680px;line-height:1.35}
+@media(max-width:600px){
+ .sales-v1 .hero h1{font-size:29px;line-height:1.2;max-width:360px;margin-bottom:23px}
+ .sales-v1 .hero-subheadline{font-size:19px;line-height:1.45;max-width:360px;margin-bottom:26px}
+ .sales-v1 .hero-preservation{margin-top:19px;margin-bottom:24px}
+ .sales-v1 .hero-preservation p{font-size:13px}
+ .sales-v1 .contents-image-frame{margin-bottom:17px}
+ .sales-v1 .contents-taste-section{padding:40px 0}
+ .sales-v1 .contents-taste-section h2{font-size:25px;line-height:1.35}
+ .sales-v1 .contents-taste-section .contents-video-frame{width:min(100%,280px)}
+}

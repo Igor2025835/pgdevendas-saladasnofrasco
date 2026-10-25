@@ -16,7 +16,8 @@ test('V2 has the seven requested sections in order, one headline and ten FAQ ans
 
 test('every original image, loop and video is retained with working root-relative paths',()=>{
  const originals=assets(main),reused=assets(v2);
- for(const asset of originals)assert.ok(reused.has(asset),'Missing original visual: '+asset);
+ // V1 and V2 keep independently approved customer screenshots.
+ for(const asset of originals)if(!asset.startsWith('assets/avaliacao-foto-'))assert.ok(reused.has(asset),'Missing original visual: '+asset);
  for(const match of v2.matchAll(/\b(?:src|href|poster|data-src|data-src-small|data-src-large|data-conversation-image)="([^"#]+)"/g)){
   const url=match[1];if(/^https?:|^mailto:/.test(url))continue;
   assert.ok(url.startsWith('/'),'Relative path at /v2: '+url);
