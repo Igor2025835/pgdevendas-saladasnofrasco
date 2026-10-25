@@ -50,3 +50,16 @@ test('V2 keeps lazy native-ratio hero, click-to-play tutorial and modal dependen
  const tutorial=v2.match(/<video\b[^>]*id="method-preview-video"[^>]*>/)?.[0];assert.ok(tutorial&&!tutorial.includes('autoplay'));
  for(const token of ['class="video-dialog"','id="video-offer"','id="year"','id="conversation-dialog"','id="exit-offer"'])assert.ok(v2.includes(token),token);
 });
+
+test('the product mockup is exclusive to the offer and hero reassurance follows the video',()=>{
+ const contents=v2.slice(v2.indexOf('id="receber"'),v2.indexOf('id="bonus"'));
+ assert.ok(!contents.includes('plan-bundle'));
+ assert.equal([...v2.matchAll(/<img class="plan-material plan-bundle"/g)].length,1);
+ const hero=v2.slice(v2.indexOf('class="hero v2-hero"'),v2.indexOf('id="receber"'));
+ assert.ok(!hero.includes('class="v2-eyebrow"'));
+ assert.ok(!hero.includes('hero-badge'));
+ assert.ok(hero.indexOf('v2-preservation-promise')>hero.indexOf('id="hero-preview-video"'));
+ assert.ok(hero.includes('v2-hero-trust'));
+ assert.equal([...hero.matchAll(/<li>/g)].length,3);
+ for(const value of ['Acesso por e-mail','Pagamento único','14 dias de garantia'])assert.ok(hero.includes(value));
+});
