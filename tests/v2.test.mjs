@@ -7,14 +7,16 @@ const v2=fs.readFileSync('dist/v2/index.html','utf8');
 const snapshot=fs.readFileSync('reference-original/v2-page.html','utf8');
 const headline=html=>html.match(/<h1>[\s\S]*?<\/h1>/)?.[0];
 const assets=html=>new Set([...html.matchAll(/\b(?:src|poster|data-src|data-src-small|data-src-large|data-conversation-image)="\/?(assets\/[^" ]+)"/g)].map(m=>m[1]));
-const bodyText=html=>html.slice(html.indexOf('<body')).replace(/<h1>[\s\S]*?<\/h1>/,'HEADLINE').replace(/<script\b[\s\S]*?<\/script>/g,'').replace(/<[^>]*>/g,'').replace(/\s+/g,' ').trim();
+const bodyText=html=>html.slice(Math.max(0,html.indexOf('<body'))).replace(/<h1>[\s\S]*?<\/h1>/,'HEADLINE').replace(/<script\b[\s\S]*?<\/script>/g,'').replace(/<[^>]*>/g,'').replace(/\s+/g,' ').trim();
 
 test('V1 restores the old headline while V2 preserves the current approved version',()=>{
  assert.ok(headline(main).includes('que nem parecem “comida de dieta”'));
  assert.equal(headline(v2),'<h1>Nunca mais vais querer comer salada <em>de outra forma.</em></h1>');
  assert.equal(headline(v2),headline(snapshot));
  assert.equal(bodyText(v2),bodyText(snapshot));
- assert.equal(bodyText(main),bodyText(v2));
+ // V1 now restores the full historical hero, while the remainder stays shared.
+ const afterHero=html=>bodyText(html.slice(html.indexOf('<div class="elementor elementor-11737 original-reference">')));
+ assert.equal(afterHero(main),afterHero(v2));
  assert.equal((v2.match(/id="avaliacoes"/g)||[]).length,1);
  assert.ok(v2.indexOf('id="avaliacoes"')<v2.indexOf('id="camadas"'));
  assert.ok(v2.includes('id="saladas-com-sabor"'));
