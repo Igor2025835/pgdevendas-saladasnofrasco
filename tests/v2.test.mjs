@@ -4,63 +4,51 @@ import fs from 'node:fs';
 import path from 'node:path';
 const main=fs.readFileSync('dist/index.html','utf8');
 const v2=fs.readFileSync('dist/v2/index.html','utf8');
+const snapshot=fs.readFileSync('reference-original/v2-page.html','utf8');
+const headline=html=>html.match(/<h1>[\s\S]*?<\/h1>/)?.[0];
 const assets=html=>new Set([...html.matchAll(/\b(?:src|poster|data-src|data-src-small|data-src-large|data-conversation-image)="\/?(assets\/[^" ]+)"/g)].map(m=>m[1]));
+const bodyText=html=>html.slice(html.indexOf('<body')).replace(/<h1>[\s\S]*?<\/h1>/,'HEADLINE').replace(/<script\b[\s\S]*?<\/script>/g,'').replace(/<[^>]*>/g,'').replace(/\s+/g,' ').trim();
 
-test('V2 has the seven requested sections in order, one headline and ten FAQ answers',()=>{
- assert.deepEqual([...v2.matchAll(/data-step="(\d+)"/g)].map(m=>m[1]),['1','2','3','4','5','6','7']);
- assert.equal([...v2.matchAll(/<h1\b/g)].length,1);
- assert.equal([...v2.matchAll(/<details>/g)].length,10);
- assert.ok(v2.indexOf('id="avaliacoes"')<v2.indexOf('id="oferta"'));
- assert.ok(v2.indexOf('id="garantia"')>v2.indexOf('id="oferta"'));
+test('V1 restores the old headline while V2 preserves the current approved version',()=>{
+ assert.ok(headline(main).includes('que nem parecem “comida de dieta”'));
+ assert.equal(headline(v2),'<h1>Nunca mais vais querer comer salada <em>de outra forma.</em></h1>');
+ assert.equal(headline(v2),headline(snapshot));
+ assert.equal(bodyText(v2),bodyText(snapshot));
+ assert.equal(bodyText(main),bodyText(v2));
+ assert.equal((v2.match(/id="avaliacoes"/g)||[]).length,1);
+ assert.ok(v2.indexOf('id="avaliacoes"')<v2.indexOf('id="camadas"'));
+ assert.ok(v2.includes('id="saladas-com-sabor"'));
 });
 
-test('every original image, loop and video is retained with working root-relative paths',()=>{
- const originals=assets(main),reused=assets(v2);
- // V1 and V2 keep independently approved customer screenshots.
- for(const asset of originals)if(!asset.startsWith('assets/avaliacao-foto-'))assert.ok(reused.has(asset),'Missing original visual: '+asset);
+test('V2 retains every approved media file and uses valid root-relative asset paths',()=>{
+ assert.deepEqual(assets(v2),assets(snapshot));
  for(const match of v2.matchAll(/\b(?:src|href|poster|data-src|data-src-small|data-src-large|data-conversation-image)="([^"#]+)"/g)){
   const url=match[1];if(/^https?:|^mailto:/.test(url))continue;
   assert.ok(url.startsWith('/'),'Relative path at /v2: '+url);
   assert.ok(fs.existsSync(path.join('dist',url.split('?')[0])),'Missing file: '+url);
  }
- for(const match of v2.matchAll(/\bsrcset="([^"]+)"/g)){
-  for(const candidate of match[1].split(',')){
-   const url=candidate.trim().split(/\s+/)[0];assert.ok(url.startsWith('/assets/'));assert.ok(fs.existsSync(path.join('dist',url)));
-  }
+ for(const match of v2.matchAll(/\bsrcset="([^"]+)"/g))for(const candidate of match[1].split(',')){
+  const url=candidate.trim().split(/\s+/)[0];assert.ok(url.startsWith('/assets/'));assert.ok(fs.existsSync(path.join('dist',url)));
  }
- assert.equal([...v2.matchAll(/<video\b/g)].length,[...main.matchAll(/<video\b/g)].length);
- assert.ok(!v2.includes('<base '),'A base URL would send #oferta to the original page');
+ assert.ok(!v2.includes('<base '),'Local anchors must stay on V2');
+ assert.ok(v2.includes('href="/v2-page.css?v='));
+ assert.ok(!v2.includes('href="/v1.css'));
 });
 
-test('V2 keeps normal and recovery offers distinct and retains UTMify and Clarity',()=>{
+test('V2 retains the normal checkout, recovery attribution, price and tracking',()=>{
  const checkout=v2.match(/<a class="button button-primary plan-checkout" href="([^"]+)"/)?.[1];
  assert.equal(checkout,'https://pay.hotmart.com/O108101669E?checkoutMode=10');
- assert.ok(v2.includes('off=j1f0nk4j&amp;')||v2.includes('off=j1f0nk4j&'));
- assert.ok(v2.includes('src=backredirect'));
- for(const token of ['6ad68f89ef79f1bfa2555745','z0pryz1i8w','data-utmify-prevent-subids'])assert.ok(v2.includes(token));
+ assert.equal((v2.match(/href="#oferta"/g)||[]).length,13);
+ for(const token of ['off=j1f0nk4j','src=backredirect','6ad68f89ef79f1bfa2555745','z0pryz1i8w','data-utmify-prevent-subids','14 dias para experimentar.'])assert.ok(v2.includes(token),token);
  assert.ok(!v2.includes("fbq('init'"));
- assert.ok(v2.includes('<strong>11</strong><span class="plan-price-cents">,90</span><span class="plan-price-currency">€</span>'));
- assert.ok(v2.includes('14 dias para experimentar.'));
- for(const link of [...v2.matchAll(/<a class="button button-primary" href="([^"]+)"/g)])assert.equal(link[1],'#oferta');
+ assert.match(v2,/<strong>11<\/strong><span class="plan-price-cents">,90<\/span>\s*<span class="plan-price-currency">€<\/span>/);
 });
 
-test('V2 keeps lazy native-ratio hero, click-to-play tutorial and modal dependencies',()=>{
+test('V2 preserves lazy autoplay, click-to-play tutorial and review enlargement',()=>{
  const hero=v2.match(/<video\b[^>]*id="hero-preview-video"[^>]*>/)?.[0];assert.ok(hero);
  assert.ok(!/\s(?:src|poster)=/.test(hero));
  for(const attr of ['autoplay','muted','loop','playsinline','preload="none"','width="1080"','height="1584"'])assert.ok(hero.includes(attr));
  const tutorial=v2.match(/<video\b[^>]*id="method-preview-video"[^>]*>/)?.[0];assert.ok(tutorial&&!tutorial.includes('autoplay'));
  for(const token of ['class="video-dialog"','id="video-offer"','id="year"','id="conversation-dialog"','id="exit-offer"'])assert.ok(v2.includes(token),token);
-});
-
-test('the product mockup is exclusive to the offer and hero reassurance follows the video',()=>{
- const contents=v2.slice(v2.indexOf('id="receber"'),v2.indexOf('id="bonus"'));
- assert.ok(!contents.includes('plan-bundle'));
- assert.equal([...v2.matchAll(/<img class="plan-material plan-bundle"/g)].length,1);
- const hero=v2.slice(v2.indexOf('class="hero v2-hero"'),v2.indexOf('id="receber"'));
- assert.ok(!hero.includes('class="v2-eyebrow"'));
- assert.ok(!hero.includes('hero-badge'));
- assert.ok(hero.indexOf('v2-preservation-promise')>hero.indexOf('id="hero-preview-video"'));
- assert.ok(hero.includes('v2-hero-trust'));
- assert.equal([...hero.matchAll(/<li>/g)].length,3);
- for(const value of ['Acesso por e-mail','Pagamento único','14 dias de garantia'])assert.ok(hero.includes(value));
+ for(let i=1;i<=5;i++)assert.ok(v2.includes(`avaliacao-foto-0${i}-out2026-600.webp`));
 });
