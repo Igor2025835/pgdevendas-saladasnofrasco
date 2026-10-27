@@ -45,7 +45,7 @@ test('V1 has the lesson hero and moved callout, with valid deferred media and in
  const html=fs.readFileSync('dist/index.html','utf8'),hero=html.match(/<section class="hero">[\s\S]*?<\/section>/)[0];
  const video=hero.match(/<video\b[^>]*>/)[0];assert.match(video,/id="hero-lesson-video"/);assert.ok(!/\s(?:src|poster|controls)=/.test(video));
  for(const attr of ['width="540"','height="960"','autoplay','muted','loop','playsinline','preload="none"'])assert.ok(video.includes(attr),attr);
- assert.ok(hero.includes('class="hero-lesson-play"'));assert.ok(hero.includes('Deixa as saladas da semana prontas em'));assert.ok(hero.includes('E descobre como conservá-las sem murcharem.'));
+ assert.ok(hero.includes('class="hero-lesson-play"'));assert.ok(hero.includes('Deixa as saladas da semana prontas em'));assert.ok(hero.includes('E conserva-as até <strong>7 dias</strong>, sem murcharem.'));
  assert.ok(hero.indexOf('class="method-callout"')>hero.indexOf('</video>'));assert.ok(hero.indexOf('class="method-callout"')<hero.indexOf('class="hero-action"'));
  assert.equal((html.match(/class="method-callout"/g)||[]).length,1);assert.ok(html.includes('hero-lesson.js?v='));assert.ok(!hero.includes('hero-saladas-preparacao'));
  const excerpt=fs.readFileSync('dist/assets/hero-aula-loop-5s-v1.mp4');assert.ok(excerpt.length<600000);assert.ok(excerpt.indexOf(Buffer.from('moov'))<excerpt.indexOf(Buffer.from('mdat')));
