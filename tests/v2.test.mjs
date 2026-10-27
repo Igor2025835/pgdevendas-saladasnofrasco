@@ -26,7 +26,9 @@ test('V1 compacts the gallery and reviews, removes the duplicate lesson and high
  assert.ok(main.includes('id="hero-lesson-video"'));
  const gallery=main.match(/<section class="reference-recipes"[\s\S]*?<\/section>/)[0];
  assert.equal((gallery.match(/class="elementor-image-box-img"/g)||[]).length,7);
- assert.ok(gallery.indexOf('data-id="540e7e55"')<gallery.indexOf('data-id="16eb5619"'));
+ assert.ok(!gallery.includes('data-id="16eb5619"'));
+ assert.equal((gallery.match(/href="#oferta"/g)||[]).length,1);
+ assert.ok(gallery.indexOf('class="recipe-more-card"')>gallery.indexOf('data-id="a46f175"'));
  const reviews=main.match(/<section class="conversation-section"[\s\S]*?<\/section>/)[0];
  assert.equal((reviews.match(/class="conversation-card">/g)||[]).length,9);
  assert.equal((reviews.match(/class="conversation-card" aria-hidden="true"/g)||[]).length,9);

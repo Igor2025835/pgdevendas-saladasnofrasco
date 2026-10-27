@@ -79,11 +79,11 @@ export function reviewContents(html,source,nodes){
  return html;
 }
 export function compactSaladGallery(html){
- // Keep complete pairs of recipes before the first full-width CTA.
+ // Fill the final pair with the recipe count and keep only the closing CTA.
  const button=contentsWidgetBounds(html,'16eb5619');
- const markup=html.slice(button.start,button.end);
  html=html.slice(0,button.start).replace(/[ \t]+$/,'')+html.slice(button.end);
- return insertAfterContentsWidget(html,'540e7e55',markup);
+ const more='<aside class="recipe-more-card" aria-label="Mais de 60 receitas diferentes"><span class="recipe-more-icon">'+icon('book')+'</span><strong>+60</strong><h3>receitas<br>diferentes</h3><p>Para variares o sabor todos os dias.</p></aside>';
+ return insertAfterContentsWidget(html,'a46f175',more);
 }
 export function makeCategories(html){
  const cards=[...html.matchAll(/<article class="category-card">[\s\S]*?<\/article>/g)].map(m=>m[0].replace('<article class="category-card">','<article class="category-card" role="listitem">')).join('');
