@@ -6,7 +6,7 @@ export function reviewHero(html,callout){
  html=html.replace(oldSubtitle,'').replace(/(<\/button>)(\s*<div class="hero-action">)/,'$1'+subtitle+'$2');
  html=html.replace(/<p class="hero-promise">[\s\S]*?<\/p>/,'').replace('<p>Coma melhor sem viver de alface e tomate.</p>','');
  html=html.replace(/<div class="hero-badge-wrap">[\s\S]*?<\/div>/,'');
- html=html.replace('</h1>','</h1><p class="hero-subheadline">60 receitas de saladas no frasco <strong>saborosas e rápidas</strong> que sabem melhor do que fast-food e não parecem “comida de dieta”.</p>'+"<div class=\"hero-badge-wrap\"><span class=\"hero-badge\"><svg aria-hidden=\"true\"><use href=\"#check\"/></svg>Saudáveis, fáceis e deliciosas.</span></div>");
+ html=html.replace('</h1>','</h1><p class="hero-subheadline">60 receitas de saladas no frasco <strong>saborosas e rápidas</strong> que sabem melhor do que fast-food e não parecem “comida de dieta”.</p>');
  html=html.replace(/<button class="hero-video[\s\S]*?<\/button>/,heroLessonPreview());
  html=html.replace(/<div class="trust-line">[\s\S]*?<\/div>/,'');
  return html.replace('7 dias de garantia','14 dias de garantia').replace('App incluído','App no plano completo');
