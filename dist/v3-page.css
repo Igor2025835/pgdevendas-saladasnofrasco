@@ -1,0 +1,65 @@
+/* V1-only adjustments: the alternative version and recovery page are untouched. */
+.sales-v1 .hero-subheadline{font:600 23px/1.45 'Sora',Arial,sans-serif;color:#173f34;max-width:690px;margin:0 auto 26px;letter-spacing:-.025em}
+.sales-v1 .hero-subheadline strong{color:#b94d08;font-weight:750}
+.sales-v1 .contents-image-frame{width:min(100%,500px);margin:0 auto 24px}
+.sales-v1 .contents-image-frame .contents-fridge-image{display:block;width:100%;height:auto;aspect-ratio:1;border-radius:12px}
+.sales-v1 .contents-taste-section{padding:50px 0;background:#fff7e7;text-align:center}
+.sales-v1 .contents-taste-section h2{max-width:680px;margin:0 auto;font:400 30px/1.35 'Sora',Arial,sans-serif;letter-spacing:-.025em;color:#3c342b}
+.sales-v1 .contents-taste-section h2 strong{font-weight:750;color:#516927}
+.sales-v1 .contents-taste-section .contents-video-frame{margin:28px auto 0;width:min(100%,320px)}
+.sales-v1 .contents-taste-section .section-plan-cta{margin-top:28px}
+.sales-v1 #avaliacoes{background:#CBCEAB}
+.sales-v1 #receitas>.e-con{width:100%;max-width:none;padding:0}
+.sales-v1 #receitas>.e-con>.e-con-inner{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:24px 18px;width:calc(100% - 40px);max-width:800px;padding:40px 0;margin-inline:auto}
+.sales-v1 #receitas .e-con-inner>.elementor-widget{width:100%;margin:0;padding:0;min-width:0}
+.sales-v1 #receitas .elementor-widget-heading,.sales-v1 #receitas .elementor-widget-button{grid-column:1/-1}
+.sales-v1 #receitas .elementor-image-box-wrapper{display:block}
+.sales-v1 #receitas .elementor-image-box-img{display:block;width:100%;margin:0 0 12px}
+.sales-v1 #receitas .elementor-image-box-img img{display:block;width:100%;height:auto;aspect-ratio:1;object-fit:cover;border-radius:12px}
+.sales-v1 #receitas .elementor-image-box-title{font:700 17px/1.4 'Sora',Arial,sans-serif;margin:0 0 7px;overflow-wrap:anywhere}
+.sales-v1 #receitas .elementor-image-box-description{font:400 12px/1.6 'Poppins',Arial,sans-serif;margin:0;white-space:normal;overflow-wrap:break-word}
+.sales-v1 #receitas .elementor-button-wrapper{max-width:430px;margin-inline:auto;padding:8px}
+.sales-v1 #receitas .elementor-button{animation:recipes-cta-pulse 2s ease-in-out infinite!important}
+.sales-v1 .recipe-more-card{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px;min-width:0;padding:24px 18px;border:1px solid #dfb98c;border-radius:13px;background:#fff4e5;text-align:center;color:#31543b}
+.sales-v1 .recipe-more-icon{display:grid;place-items:center;width:54px;height:54px;border-radius:50%;background:#f2e4cf;color:#aa4c0b}
+.sales-v1 .recipe-more-icon svg{width:30px;height:30px;fill:none;stroke:currentColor;stroke-width:1.6}
+.sales-v1 .recipe-more-card>strong{font:800 58px/1 'Sora',Arial,sans-serif;letter-spacing:-.06em;color:#b94d08}
+.sales-v1 .recipe-more-card h3{font:700 23px/1.3 'Sora',Arial,sans-serif;letter-spacing:-.025em;margin:0;color:#31543b}
+.sales-v1 .recipe-more-card p{font:400 13px/1.6 'Poppins',Arial,sans-serif;margin:0;max-width:210px;color:#526144}
+.sales-v1 #avaliacoes{padding:35px 0}
+.sales-v1 .conversation-carousel{display:grid;grid-auto-flow:column;grid-template-columns:none;grid-auto-columns:230px;gap:15px;overflow-x:auto;scroll-snap-type:none;overscroll-behavior-x:contain;padding:3px 3px 14px;scrollbar-width:thin;scrollbar-color:#51692766 transparent}
+.sales-v1 .conversation-carousel:focus-visible{outline:3px solid #315c43;outline-offset:3px}
+.sales-v1 .plan-assurances{list-style:none;padding:14px;margin:16px 0 0;display:grid;gap:11px;background:#f3f6ee;border:1px solid #dae3cd;border-radius:11px}
+.sales-v1 .plan-assurances li{display:flex;align-items:center;gap:9px;font:500 12px/1.5 'Poppins',Arial,sans-serif;color:#31543b}
+.sales-v1 .plan-assurances svg{flex:0 0 20px;width:20px;height:20px;fill:none;stroke:currentColor;stroke-width:1.6}
+.sales-v1 .hero .hero-lesson-media{position:relative;aspect-ratio:9/16;overflow:hidden;background:#173f35;isolation:isolate}
+.sales-v1 .hero-lesson-media video{display:block;width:100%;height:100%;object-fit:contain}
+.sales-v1 .hero-lesson-overlay{position:absolute;inset:0;display:grid;place-items:center;pointer-events:none}
+.sales-v1 .hero-lesson-play{pointer-events:auto;display:flex;flex-direction:column;align-items:center;gap:8px;width:min(78%,260px);padding:17px 15px;border:1px solid #ffffffa0;border-radius:16px;background:rgb(184 73 7 / .88);color:#fff;font:600 14px/1.4 'Poppins',Arial,sans-serif;text-align:center;cursor:pointer;box-shadow:0 5px 24px #152c2340}
+.sales-v1 .hero-lesson-play[hidden]{display:none!important}
+.sales-v1 .hero-lesson-play:focus-visible{outline:3px solid #fff;outline-offset:5px}
+.sales-v1 .hero-lesson-play svg{width:39px;height:39px;fill:none;stroke:currentColor;stroke-width:2}
+.sales-v1 .hero-lesson-hint{font-size:13px;font-weight:700}
+.sales-v1 .hero .method-callout{max-width:540px;margin:22px auto 0;padding:19px 17px;gap:12px}
+.sales-v1 .hero .method-callout p{margin:0;font-size:14px;line-height:1.65}
+.sales-v1 .hero .method-callout em{font:800 15px/1.65 'Poppins',Arial,sans-serif}
+.sales-v1 .hero .method-preservation-note{display:block;margin-top:9px;padding-top:9px;border-top:1px solid #c9510c25;color:#96460d;font-weight:600}
+.sales-v1 .hero .hero-action{margin-top:24px}
+@media(max-width:600px){
+ .sales-v1 .hero-subheadline{font-size:19px;max-width:360px}
+ .sales-v1 .recipe-more-card{gap:10px;padding:18px 12px}
+ .sales-v1 .recipe-more-icon{width:42px;height:42px}
+ .sales-v1 .recipe-more-icon svg{width:25px;height:25px}
+ .sales-v1 .recipe-more-card>strong{font-size:43px}
+ .sales-v1 .recipe-more-card h3{font-size:17px}
+ .sales-v1 .recipe-more-card p{font-size:11px;line-height:1.6}
+ .sales-v1 #receitas>.e-con>.e-con-inner{width:calc(100% - 28px);gap:22px 12px;padding:34px 0}
+ .sales-v1 #receitas .elementor-image-box-title{font-size:13px;line-height:1.45}
+ .sales-v1 #receitas .elementor-image-box-description{font-size:10px;line-height:1.6}
+ .sales-v1 #receitas .elementor-image-box-img{margin-bottom:10px}
+ .sales-v1 .conversation-carousel{grid-auto-columns:72%;gap:12px}
+ .sales-v1 .contents-image-frame{margin-bottom:17px}
+ .sales-v1 .contents-taste-section{padding:40px 0}
+ .sales-v1 .contents-taste-section h2{font-size:25px;line-height:1.35}
+ .sales-v1 .contents-taste-section .contents-video-frame{width:min(100%,280px)}
+}
