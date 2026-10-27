@@ -20,26 +20,6 @@
     }
   },
   {
-    "id": "foto-2",
-    "name": "Carla Mendes",
-    "platform": "Instagram",
-    "messages": [],
-    "sizes": {
-      "600": {
-        "file": "avaliacao-foto-02-out2026-600.webp",
-        "width": 600,
-        "height": 1066,
-        "bytes": 106370
-      },
-      "1000": {
-        "file": "avaliacao-foto-02-out2026-1000.webp",
-        "width": 941,
-        "height": 1672,
-        "bytes": 220510
-      }
-    }
-  },
-  {
     "id": "foto-3",
     "name": "Sónia Ferreira",
     "platform": "Instagram",
@@ -56,6 +36,26 @@
         "width": 941,
         "height": 1672,
         "bytes": 174404
+      }
+    }
+  },
+  {
+    "id": "foto-2",
+    "name": "Carla Mendes",
+    "platform": "Instagram",
+    "messages": [],
+    "sizes": {
+      "600": {
+        "file": "avaliacao-foto-02-out2026-600.webp",
+        "width": 600,
+        "height": 1066,
+        "bytes": 106370
+      },
+      "1000": {
+        "file": "avaliacao-foto-02-out2026-1000.webp",
+        "width": 941,
+        "height": 1672,
+        "bytes": 220510
       }
     }
   },

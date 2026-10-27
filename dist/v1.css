@@ -24,9 +24,10 @@
 .sales-v1 .conversation-navigation button{display:grid;place-items:center;flex-shrink:0;width:40px;height:40px;padding:9px;border:1px solid #51692755;border-radius:50%;background:#fff8;color:#315c43;cursor:pointer}
 .sales-v1 .conversation-navigation button svg{width:20px;height:20px}
 .sales-v1 .reviews-previous svg{transform:rotate(180deg)}
+.sales-v1 .reviews-toggle .review-play-icon,.sales-v1 .reviews-toggle[data-paused="true"] .review-pause-icon{display:none}
+.sales-v1 .reviews-toggle[data-paused="true"] .review-play-icon{display:block}
 .sales-v1 .conversation-navigation button:disabled{opacity:.35;cursor:default}
-.sales-v1 .conversation-carousel{display:grid;grid-auto-flow:column;grid-template-columns:none;grid-auto-columns:230px;gap:15px;overflow-x:auto;scroll-snap-type:x mandatory;overscroll-behavior-x:contain;padding:3px 3px 14px;scrollbar-width:thin;scrollbar-color:#51692766 transparent}
-.sales-v1 .conversation-carousel .conversation-card{scroll-snap-align:start}
+.sales-v1 .conversation-carousel{display:grid;grid-auto-flow:column;grid-template-columns:none;grid-auto-columns:230px;gap:15px;overflow-x:auto;scroll-snap-type:none;overscroll-behavior-x:contain;padding:3px 3px 14px;scrollbar-width:thin;scrollbar-color:#51692766 transparent}
 .sales-v1 .conversation-carousel:focus-visible,.sales-v1 .conversation-navigation button:focus-visible{outline:3px solid #315c43;outline-offset:3px}
 .sales-v1 .plan-assurances{list-style:none;padding:14px;margin:16px 0 0;display:grid;gap:11px;background:#f3f6ee;border:1px solid #dae3cd;border-radius:11px}
 .sales-v1 .plan-assurances li{display:flex;align-items:center;gap:9px;font:500 12px/1.5 'Poppins',Arial,sans-serif;color:#31543b}

@@ -28,9 +28,12 @@ test('V1 compacts the gallery and reviews, removes the duplicate lesson and high
  assert.equal((gallery.match(/class="elementor-image-box-img"/g)||[]).length,7);
  assert.ok(gallery.indexOf('data-id="540e7e55"')<gallery.indexOf('data-id="16eb5619"'));
  const reviews=main.match(/<section class="conversation-section"[\s\S]*?<\/section>/)[0];
- assert.equal((reviews.match(/class="conversation-card"/g)||[]).length,9);
+ assert.equal((reviews.match(/class="conversation-card">/g)||[]).length,9);
+ assert.equal((reviews.match(/class="conversation-card" aria-hidden="true"/g)||[]).length,9);
  assert.ok(reviews.includes('id="reviews-track"'));
- assert.ok(main.includes(reviews+'<section class="purchase-section purchase-plans"'));
+ assert.ok(main.includes(reviews+'<section class="new-bonuses section"'));
+ const names=[...reviews.matchAll(/aria-label="Ampliar a avaliação de ([^"]+)"/g)].slice(0,3).map(m=>m[1]);
+ assert.deepEqual(names,['Beatriz Lopes','Sónia Ferreira','Carla Mendes']);
  const offer=main.match(/<section class="purchase-section[\s\S]*?<\/section>/)[0];
  assert.ok(offer.indexOf('plan-checkout')<offer.indexOf('class="plan-assurances"'));
  for(const text of ['Acesso enviado por e-mail','Pagamento único','14 dias de garantia'])assert.ok(offer.includes(text));
