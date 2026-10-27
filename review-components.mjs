@@ -1,6 +1,6 @@
 const icon=name=>`<svg aria-hidden="true"><use href="#${name}"/></svg>`;
 export function reviewHero(html,callout){
- html=html.replace(/<h1>[\s\S]*?<\/h1>/,'<h1>Descobre 60 receitas de saladas <em>saborosas e rápidas</em> para teres sempre em casa, que nem parecem “comida de dieta”.</h1>');
+ html=html.replace(/<h1>[\s\S]*?<\/h1>/,'<h1>Descobre 60 receitas de saladas no frasco, <em>saborosas e rápidas</em>, que nem parecem “comida de dieta” e vais querer repetir todos os dias.</h1>');
  const oldSubtitle=html.match(/<p class="hero-description">[\s\S]*?<\/p>/)?.[0]||'';
  const subtitle=callout.replace('E descubra como conservar sem murchar.','E conserva-as até <strong>7 dias</strong>, sem murcharem.');
  html=html.replace(oldSubtitle,'').replace(/(<\/button>)(\s*<div class="hero-action">)/,'$1'+subtitle+'$2');
