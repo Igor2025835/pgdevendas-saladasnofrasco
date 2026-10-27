@@ -5,8 +5,6 @@
   const first = track.querySelector('.conversation-card');
   const repeated = track.querySelector('.conversation-card[aria-hidden="true"]');
   const dialog = document.querySelector('#conversation-dialog');
-  const reduced = window.matchMedia('(prefers-reduced-motion: reduce)');
-  const toggle = document.querySelector('.reviews-toggle');
   let distance = 0;
   let position = track.scrollLeft;
   let previousTime = null;
@@ -15,16 +13,9 @@
   let manual = false;
   let hover = false;
   let focused = false;
-  let userPaused = false;
-  let motionOverride = false;
   let visible = typeof IntersectionObserver !== 'function';
   const wrap = value => distance > 0 ? ((value % distance) + distance) % distance : 0;
-  const paused = () => userPaused || (reduced.matches && !motionOverride);
-  const mayRun = () => distance > 0 && visible && !document.hidden && !paused() && !manual && !hover && !focused && !dialog?.open;
-  const updateToggle = () => {
-    toggle.dataset.paused = String(paused());
-    toggle.setAttribute('aria-label', paused() ? 'Iniciar rolagem automática' : 'Pausar rolagem automática');
-  };
+  const mayRun = () => distance > 0 && visible && !document.hidden && !manual && !hover && !focused && !dialog?.open;
   const tick = time => {
     frame = null;
     if (!mayRun()) { previousTime = null; return; }
@@ -60,19 +51,6 @@
     clearTimeout(timer);
     timer = setTimeout(() => { manual = false; sync(); }, 4000);
   };
-  const move = direction => {
-    pauseForInteraction();
-    position = wrap(track.scrollLeft + direction * track.clientWidth * .85);
-    track.scrollLeft = position;
-  };
-  document.querySelector('.reviews-previous').addEventListener('click', () => move(-1));
-  document.querySelector('.reviews-next').addEventListener('click', () => move(1));
-  toggle.addEventListener('click', () => {
-    if (paused()) { userPaused = false; motionOverride = true; }
-    else userPaused = true;
-    updateToggle();
-    sync();
-  });
   for (const event of ['pointerdown', 'wheel', 'keydown']) track.addEventListener(event, pauseForInteraction, { passive: true });
   track.addEventListener('pointerenter', () => {
     if (window.matchMedia('(hover: hover)').matches) { hover = true; sync(); }
@@ -83,7 +61,6 @@
     if (!track.contains(event.relatedTarget)) { focused = false; sync(); }
   });
   dialog?.addEventListener('close', sync);
-  reduced.addEventListener('change', () => { motionOverride = false; updateToggle(); sync(); });
   document.addEventListener('visibilitychange', sync);
   window.addEventListener('pagehide', () => { visible = false; sync(); });
   window.addEventListener('pageshow', () => {
@@ -99,6 +76,5 @@
       sync();
     }).observe(track);
   }
-  updateToggle();
   measure();
 })();

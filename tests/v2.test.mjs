@@ -31,6 +31,8 @@ test('V1 compacts the gallery and reviews, removes the duplicate lesson and high
  assert.equal((reviews.match(/class="conversation-card">/g)||[]).length,9);
  assert.equal((reviews.match(/class="conversation-card" aria-hidden="true"/g)||[]).length,9);
  assert.ok(reviews.includes('id="reviews-track"'));
+ assert.ok(!reviews.includes('conversation-navigation'));
+ assert.ok(!reviews.includes('Vê as avaliações e toca para ampliar.'));
  assert.ok(main.includes(reviews+'<section class="new-bonuses section"'));
  const names=[...reviews.matchAll(/aria-label="Ampliar a avaliação de ([^"]+)"/g)].slice(0,3).map(m=>m[1]);
  assert.deepEqual(names,['Beatriz Lopes','Sónia Ferreira','Carla Mendes']);
