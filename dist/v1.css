@@ -1,4 +1,6 @@
 /* V1-only adjustments: the alternative version and recovery page are untouched. */
+.sales-v1 .hero-subheadline{font:600 23px/1.45 'Sora',Arial,sans-serif;color:#173f34;max-width:690px;margin:0 auto 26px;letter-spacing:-.025em}
+.sales-v1 .hero-subheadline strong{color:#b94d08;font-weight:750}
 .sales-v1 .contents-image-frame{width:min(100%,500px);margin:0 auto 24px}
 .sales-v1 .contents-image-frame .contents-fridge-image{display:block;width:100%;height:auto;aspect-ratio:1;border-radius:12px}
 .sales-v1 .contents-taste-section{padding:50px 0;background:#fff7e7;text-align:center}
@@ -44,6 +46,7 @@
 .sales-v1 .hero .method-preservation-note{display:block;margin-top:9px;padding-top:9px;border-top:1px solid #c9510c25;color:#96460d;font-weight:600}
 .sales-v1 .hero .hero-action{margin-top:24px}
 @media(max-width:600px){
+ .sales-v1 .hero-subheadline{font-size:19px;max-width:360px}
  .sales-v1 .recipe-more-card{gap:10px;padding:18px 12px}
  .sales-v1 .recipe-more-icon{width:42px;height:42px}
  .sales-v1 .recipe-more-icon svg{width:25px;height:25px}

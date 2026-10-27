@@ -1,12 +1,12 @@
 const icon=name=>`<svg aria-hidden="true"><use href="#${name}"/></svg>`;
 export function reviewHero(html,callout){
- html=html.replace(/<h1>[\s\S]*?<\/h1>/,'<h1>Descobre 60 receitas de saladas no frasco, <em>saborosas e rápidas</em>, que nem parecem “comida de dieta” e vais querer repetir todos os dias.</h1>');
+ html=html.replace(/<h1>[\s\S]*?<\/h1>/,'<h1>Nunca mais vais querer comer salada <em>de outra forma.</em></h1>');
  const oldSubtitle=html.match(/<p class="hero-description">[\s\S]*?<\/p>/)?.[0]||'';
  const subtitle=callout.replace('E descubra como conservar sem murchar.','E conserva-as até <strong>7 dias</strong>, sem murcharem.');
  html=html.replace(oldSubtitle,'').replace(/(<\/button>)(\s*<div class="hero-action">)/,'$1'+subtitle+'$2');
  html=html.replace(/<p class="hero-promise">[\s\S]*?<\/p>/,'').replace('<p>Coma melhor sem viver de alface e tomate.</p>','');
  html=html.replace(/<div class="hero-badge-wrap">[\s\S]*?<\/div>/,'');
- html=html.replace('</h1>','</h1>'+"<div class=\"hero-badge-wrap\"><span class=\"hero-badge\"><svg aria-hidden=\"true\"><use href=\"#check\"/></svg>Saudáveis, fáceis e deliciosas.</span></div>");
+ html=html.replace('</h1>','</h1><p class="hero-subheadline">60 receitas de saladas no frasco <strong>saborosas e rápidas</strong> que sabem melhor do que fast-food e não parecem “comida de dieta”.</p>'+"<div class=\"hero-badge-wrap\"><span class=\"hero-badge\"><svg aria-hidden=\"true\"><use href=\"#check\"/></svg>Saudáveis, fáceis e deliciosas.</span></div>");
  html=html.replace(/<button class="hero-video[\s\S]*?<\/button>/,heroLessonPreview());
  html=html.replace(/<div class="trust-line">[\s\S]*?<\/div>/,'');
  return html.replace('7 dias de garantia','14 dias de garantia').replace('App incluído','App no plano completo');

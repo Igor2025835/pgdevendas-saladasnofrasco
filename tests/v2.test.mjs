@@ -9,8 +9,9 @@ const headline=html=>html.match(/<h1>[\s\S]*?<\/h1>/)?.[0];
 const assets=html=>new Set([...html.matchAll(/\b(?:src|poster|data-src|data-src-small|data-src-large|data-conversation-image)="\/?(assets\/[^" ]+)"/g)].map(m=>m[1]));
 const bodyText=html=>html.slice(Math.max(0,html.indexOf('<body'))).replace(/<h1>[\s\S]*?<\/h1>/,'HEADLINE').replace(/<script\b[\s\S]*?<\/script>/g,'').replace(/<[^>]*>/g,'').replace(/\s+/g,' ').trim();
 
-test('V1 restores the old headline while V2 preserves the current approved version',()=>{
- assert.ok(headline(main).includes('que nem parecem “comida de dieta”'));
+test('V1 uses the requested headline and subheadline while V2 preserves its approved version',()=>{
+ assert.equal(headline(main),'<h1>Nunca mais vais querer comer salada <em>de outra forma.</em></h1>');
+ assert.ok(main.includes('<p class="hero-subheadline">60 receitas de saladas no frasco <strong>saborosas e rápidas</strong> que sabem melhor do que fast-food e não parecem “comida de dieta”.</p>'));
  assert.equal(headline(v2),'<h1>Nunca mais vais querer comer salada <em>de outra forma.</em></h1>');
  assert.equal(headline(v2),headline(snapshot));
  assert.equal(bodyText(v2),bodyText(snapshot));
