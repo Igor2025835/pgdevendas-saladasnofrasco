@@ -78,6 +78,13 @@ export function reviewContents(html,source,nodes){
  html=insertAfterContentsWidget(html,'4f85e9fd',image);
  return html;
 }
+export function compactSaladGallery(html){
+ // Keep complete pairs of recipes before the first full-width CTA.
+ const button=contentsWidgetBounds(html,'16eb5619');
+ const markup=html.slice(button.start,button.end);
+ html=html.slice(0,button.start).replace(/[ \t]+$/,'')+html.slice(button.end);
+ return insertAfterContentsWidget(html,'540e7e55',markup);
+}
 export function makeCategories(html){
  const cards=[...html.matchAll(/<article class="category-card">[\s\S]*?<\/article>/g)].map(m=>m[0].replace('<article class="category-card">','<article class="category-card" role="listitem">')).join('');
  const styles=[['🔥','Leves'],['💪','Proteicas'],['🥗','Equilibradas'],['😋','Irresistíveis'],['⚡','Rápidas'],['🌿','Mediterrânicas'],['🌶️','Picantes']];
@@ -115,14 +122,16 @@ export function reviewAuthor(html){
  return html.replace(/<img\b[^>]*src="assets\/original-12\.webp"[^>]*>/,portrait);
 }
 
-export function makeConversations(reviews){
+export function makeConversations(reviews,compact=false){
  const escape=value=>String(value).replaceAll('&','&amp;').replaceAll('"','&quot;').replaceAll('<','&lt;').replaceAll('>','&gt;');
  const cards=reviews.map(review=>{
   const thumb=review.sizes['600'],full=review.sizes['1000'];
   const alt='Avaliação de '+review.name+' enviada pelo '+review.platform;
   return '<figure class="conversation-card"><button type="button" class="conversation-open" data-conversation-image="assets/'+full.file+'" aria-label="Ampliar a avaliação de '+escape(review.name)+'"><img src="assets/'+thumb.file+'" width="'+thumb.width+'" height="'+thumb.height+'" alt="'+escape(alt)+'" loading="lazy" decoding="async"></button></figure>';
  }).join('');
- return '<section class="conversation-section" id="avaliacoes"><div class="review-wrap"><h2 class="review-heading"><strong>O que dizem os nossos clientes</strong></h2><div class="conversation-grid">'+cards+'</div><dialog id="conversation-dialog" class="conversation-dialog" aria-label="Avaliação ampliada"><button type="button" class="conversation-close" aria-label="Fechar conversa">×</button><img alt="" width="1000" height="1250"></dialog></div></section>';
+ const controls=compact?'<div class="conversation-navigation"><p>Vê as avaliações e toca para ampliar.</p><div><button type="button" class="reviews-previous" aria-label="Ver avaliações anteriores" aria-controls="reviews-track">'+icon('arrow')+'</button><button type="button" class="reviews-next" aria-label="Ver mais avaliações" aria-controls="reviews-track">'+icon('arrow')+'</button></div></div>':'';
+ const track=compact?'class="conversation-grid conversation-carousel" id="reviews-track" tabindex="0" aria-label="Avaliações dos clientes"':'class="conversation-grid"';
+ return '<section class="conversation-section" id="avaliacoes"><div class="review-wrap"><h2 class="review-heading"><strong>O que dizem os nossos clientes</strong></h2>'+controls+'<div '+track+'>'+cards+'</div><dialog id="conversation-dialog" class="conversation-dialog" aria-label="Avaliação ampliada"><button type="button" class="conversation-close" aria-label="Fechar conversa">×</button><img alt="" width="1000" height="1250"></dialog></div></section>';
 }
 
 export function methodPreview(){

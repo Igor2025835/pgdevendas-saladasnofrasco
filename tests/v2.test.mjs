@@ -14,12 +14,28 @@ test('V1 restores the old headline while V2 preserves the current approved versi
  assert.equal(headline(v2),'<h1>Nunca mais vais querer comer salada <em>de outra forma.</em></h1>');
  assert.equal(headline(v2),headline(snapshot));
  assert.equal(bodyText(v2),bodyText(snapshot));
- // The conservation callout moved into V1's hero; V2 keeps its frozen placement.
- const afterHero=html=>bodyText(html.slice(html.indexOf('<div class="elementor elementor-11737 original-reference">')).replace(/<div class="method-callout">[\s\S]*?<\/div>/,''));
- assert.equal(afterHero(main),afterHero(v2));
+ // V1 evolves independently; V2's content remains equal to its approved snapshot.
  assert.equal((v2.match(/id="avaliacoes"/g)||[]).length,1);
  assert.ok(v2.indexOf('id="avaliacoes"')<v2.indexOf('id="camadas"'));
  assert.ok(v2.includes('id="saladas-com-sabor"'));
+});
+
+test('V1 compacts the gallery and reviews, removes the duplicate lesson and highlights purchase conditions',()=>{
+ assert.ok(!main.includes('id="camadas"'));
+ assert.ok(!main.includes('id="method-preview-video"'));
+ assert.ok(main.includes('id="hero-lesson-video"'));
+ const gallery=main.match(/<section class="reference-recipes"[\s\S]*?<\/section>/)[0];
+ assert.equal((gallery.match(/class="elementor-image-box-img"/g)||[]).length,7);
+ assert.ok(gallery.indexOf('data-id="540e7e55"')<gallery.indexOf('data-id="16eb5619"'));
+ const reviews=main.match(/<section class="conversation-section"[\s\S]*?<\/section>/)[0];
+ assert.equal((reviews.match(/class="conversation-card"/g)||[]).length,9);
+ assert.ok(reviews.includes('id="reviews-track"'));
+ assert.ok(main.includes(reviews+'<section class="purchase-section purchase-plans"'));
+ const offer=main.match(/<section class="purchase-section[\s\S]*?<\/section>/)[0];
+ assert.ok(offer.indexOf('plan-checkout')<offer.indexOf('class="plan-assurances"'));
+ for(const text of ['Acesso enviado por e-mail','Pagamento único','14 dias de garantia'])assert.ok(offer.includes(text));
+ assert.ok(!v2.includes('reviews-track'));
+ assert.ok(!v2.includes('plan-assurances'));
 });
 
 test('V2 retains every approved media file and uses valid root-relative asset paths',()=>{

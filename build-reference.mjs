@@ -1,4 +1,4 @@
-import {reviewHero,reviewMethod,reviewContents,contentsTasteSection,makeCategories,makeSalads,makeSauces,makePain,addPlanCta,reviewAuthor,reviewFooter,makeConversations,methodPreview} from './review-components.mjs';
+import {reviewHero,reviewMethod,reviewContents,contentsTasteSection,compactSaladGallery,makeCategories,makeSalads,makeSauces,makePain,addPlanCta,reviewAuthor,reviewFooter,makeConversations} from './review-components.mjs';
 import fs from 'node:fs/promises';
 import {localizePtPt} from './localize-pt-pt.mjs';
 import path from 'node:path';
@@ -63,15 +63,14 @@ await fs.writeFile('dist/reference-css/fonts.css',fontCss);cssFiles.push('refere
 let contents=await localize(get('5c6c16f'));
 contents=contents.replace('eNCONTRAR:','encontrar:').replace('Conservação de 7 dias','Orientações de conservação');
 contents=reviewContents(contents,source,nodes);
-const salads='<section class="reference-recipes" id="receitas">'+(await localize(get('6d08b170'))).replace(/<h2\b[^>]*>[\s\S]*?<\/h2>/,'<h2 class="elementor-heading-title elementor-size-default">Algumas saladas<br><strong>que vais aprender:</strong></h2>').replaceAll('Conservação: 7 dias','Conservação: 5–7 dias no frigorífico')+'</section>';
+const salads=compactSaladGallery('<section class="reference-recipes" id="receitas">'+(await localize(get('6d08b170'))).replace(/<h2\b[^>]*>[\s\S]*?<\/h2>/,'<h2 class="elementor-heading-title elementor-size-default">Algumas saladas<br><strong>que vais aprender:</strong></h2>').replaceAll('Conservação: 7 dias','Conservação: 5–7 dias no frigorífico')+'</section>');
 const sauces=makeSauces();
 const video='assets/metodo-aula-previa-v1.mp4';
-const lesson=`<section class="reference-lesson combined-method" id="camadas"><div class="lesson-inner"><span id="metodo" class="method-anchor" aria-hidden="true"></span><h2 class="lesson-watch-heading">O método das camadas, na prática.<br><strong>Vê a prévia da aula 1.</strong></h2>${methodPreview()}</div></section>`;
 const bonuses="<section class=\"new-bonuses section\" id=\"bonus\"><div class=\"wrap\"><div class=\"section-heading center-heading\"><h2>Recebe ainda<br><strong>3 bónus incluídos</strong></h2><p>Mais variedade e organização para as tuas refeições.</p></div><div class=\"bonus-grid\"><article class=\"bonus-card\"><img src=\"assets/original-1.webp\" alt=\"Molho caseiro sobre uma salada\" loading=\"lazy\"><div><span class=\"block-icon\"><svg aria-hidden=\"true\"><use href=\"#spark\"/></svg></span><span class=\"chapter\">BÓNUS 01</span><h3>Molhos saudáveis</h3><p>Molhos caseiros para variar o sabor das tuas saladas, com ingredientes simples.</p><span class=\"included\"><svg aria-hidden=\"true\"><use href=\"#check\"/></svg>Incluído no plano</span></div></article><article class=\"bonus-card\"><img src=\"assets/original-11.webp\" alt=\"Salada proteica com frango\" loading=\"lazy\"><div><span class=\"block-icon\"><svg aria-hidden=\"true\"><use href=\"#shield\"/></svg></span><span class=\"chapter\">BÓNUS 02</span><h3>Saladas proteicas</h3><p>Refeições com proteína que podem ajudar a emagrecer e a ganhar massa muscular, no contexto de uma alimentação equilibrada e de exercício adequado.</p><span class=\"included\"><svg aria-hidden=\"true\"><use href=\"#check\"/></svg>Incluído no plano</span></div></article><article class=\"bonus-card\"><div class=\"bonus-app-preview\" role=\"img\" aria-label=\"Ilustração da app com receitas organizadas\"><div class=\"bonus-phone\"><span>As tuas receitas</span><div><img src=\"assets/original-9.webp\" alt=\"\" loading=\"lazy\"><img src=\"assets/original-14.webp\" alt=\"\" loading=\"lazy\"><img src=\"assets/original-6.webp\" alt=\"\" loading=\"lazy\"><img src=\"assets/original-7.webp\" alt=\"\" loading=\"lazy\"></div><small>Escolhe · Planeia · Prepara</small></div></div><div><span class=\"block-icon\"><svg aria-hidden=\"true\"><use href=\"#phone\"/></svg></span><span class=\"chapter\">BÓNUS 03</span><h3>App de receitas</h3><p>Todas as receitas organizadas, filtros pelos ingredientes que tens em casa, lista de compras, tutoriais, tipos de saladas, planeamento semanal e molhos.</p><span class=\"included\"><svg aria-hidden=\"true\"><use href=\"#check\"/></svg>Incluído no plano</span></div></article></div></div></section>";
 const pain=makePain();
 const offer=await fs.readFile('reference-original/offer-updated.html','utf8');
 const author=reviewAuthor(await localize(get('cbc5459')));
-const testimonials=makeConversations(JSON.parse(await fs.readFile('reference-original/review-conversations.json','utf8')));
+const testimonials=makeConversations(JSON.parse(await fs.readFile('reference-original/review-conversations.json','utf8')),true);
 let faq=await localize(get('3d6ee6f'));
 for(const content of nodes.filter(n=>(n.attrs.class||'').includes('elementor-tab-content'))) {
  let replacement=null;
@@ -82,7 +81,7 @@ for(const content of nodes.filter(n=>(n.attrs.class||'').includes('elementor-tab
 let head=current.slice(0,current.indexOf('<body>'));
 head=head.replace('<link rel="stylesheet" href="redesign.css">',cssFiles.map(file=>`<link rel="stylesheet" href="${file}">`).join('')+'<link rel="stylesheet" href="redesign.css">');
 head=head.replace('<script src="redesign.js" defer></script>','<link rel="stylesheet" href="original-local.css"><script src="original-local.js" defer></script>');
-let result=head+'<body class="elementor-kit-5 sales-v1"><a class="skip-link" href="#conteudo">Pular para o conteúdo</a>'+header+'<main id="conteudo">'+hero+'<div class="elementor elementor-11737 original-reference">'+contents+contentsTasteSection()+addPlanCta(salads,'Quero aprender essas saladas')+sauces+addPlanCta(testimonials,'Garantir o meu acesso')+addPlanCta(lesson,'Quero acesso às aulas')+addPlanCta(bonuses,'Quero o plano completo')+addPlanCta(pain,'Quero começar')+offer+addPlanCta(author,'Ver os planos')+addPlanCta(faq,'Escolher meu plano')+'</div></main>'+footer+dialog+sprite+'</body></html>';
+let result=head+'<body class="elementor-kit-5 sales-v1"><a class="skip-link" href="#conteudo">Pular para o conteúdo</a>'+header+'<main id="conteudo">'+hero+'<div class="elementor elementor-11737 original-reference">'+contents+contentsTasteSection()+addPlanCta(salads,'Quero aprender essas saladas')+sauces+addPlanCta(bonuses,'Quero o plano completo')+addPlanCta(pain,'Quero começar')+addPlanCta(testimonials,'Garantir o meu acesso')+offer+addPlanCta(author,'Ver os planos')+addPlanCta(faq,'Escolher meu plano')+'</div></main>'+footer+dialog+sprite+'</body></html>';
 const reviewVersion=createHash('sha256').update(await fs.readFile('dist/review.css')).digest('hex').slice(0,10);
 const scriptVersion=createHash('sha256').update(await fs.readFile('dist/original-local.js')).digest('hex').slice(0,10);
 const trackingHead=await fs.readFile('reference-original/tracking-head.html','utf8');
@@ -112,7 +111,8 @@ const attributionScript=`<script src="recovery-attribution.js?v=${attributionVer
 const heroVersion=createHash('sha256').update(await fs.readFile('dist/hero-lesson.js')).digest('hex').slice(0,10);
 result=result.replace('</body>',exitOffer+`<script src="hero-lesson.js?v=${heroVersion}" defer></script>`+attributionScript+`<script src="exit-offer.js?v=${exitVersion}" defer></script></body>`);
 const v1CssVersion=createHash('sha256').update(await fs.readFile('dist/v1.css')).digest('hex').slice(0,10);
-await fs.writeFile('dist/index.html',result.replace('</head>',`<link rel="stylesheet" href="v1.css?v=${v1CssVersion}"></head>`));
+const v1LayoutVersion=createHash('sha256').update(await fs.readFile('dist/v1-layout.js')).digest('hex').slice(0,10);
+await fs.writeFile('dist/index.html',result.replace('</head>',`<link rel="stylesheet" href="v1.css?v=${v1CssVersion}"></head>`).replace('</body>',`<script src="v1-layout.js?v=${v1LayoutVersion}" defer></script></body>`));
 const backHead=result.slice(0,result.indexOf('<body'))
  .replace('<head>','<head><base href="/"><meta name="robots" content="noindex, follow">')
  .replace(/<title>[\s\S]*?<\/title>/,'<title>O plano completo por 7,90 € — Saladas Saborosas no Frasco</title>')
