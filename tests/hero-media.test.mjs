@@ -46,8 +46,8 @@ test('bfcache restores visible playback without fetching another source',()=>{
 test('older browsers use viewport checks and a delayed fallback after paint',()=>{
  const p=page({noObserver:true,noIdle:true});p.load();p.paint();assert.equal(p.video.src,'');p.idle();assert.equal(p.video.loads,1);p.video.rect={top:900,bottom:1400};const pauses=p.video.pauses;p.emit('window','scroll');assert.ok(p.video.pauses>pauses);
 });
-test('generated hero reserves the native video ratio without a cover image or eager source',()=>{
- const html=fs.readFileSync(new URL('../dist/index.html',import.meta.url),'utf8');
+test('frozen V2 hero reserves the native video ratio without a cover image or eager source',()=>{
+ const html=fs.readFileSync(new URL('../dist/v2/index.html',import.meta.url),'utf8');
  const video=html.match(/<video\b[^>]*id="hero-preview-video"[^>]*>/)?.[0];assert.ok(video);
  assert.ok(!/\s(?:src|poster)=/.test(video));for(const token of ['autoplay','muted','loop','playsinline','preload="none"','width="1080"','height="1584"'])assert.ok(video.includes(token),token);
  assert.ok(html.includes('class="hero-main-image hero-media"'));assert.ok(!html.includes('class="hero-video-poster"'));

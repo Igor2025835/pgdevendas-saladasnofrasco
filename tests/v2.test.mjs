@@ -14,8 +14,8 @@ test('V1 restores the old headline while V2 preserves the current approved versi
  assert.equal(headline(v2),'<h1>Nunca mais vais querer comer salada <em>de outra forma.</em></h1>');
  assert.equal(headline(v2),headline(snapshot));
  assert.equal(bodyText(v2),bodyText(snapshot));
- // V1 now restores the full historical hero, while the remainder stays shared.
- const afterHero=html=>bodyText(html.slice(html.indexOf('<div class="elementor elementor-11737 original-reference">')));
+ // The conservation callout moved into V1's hero; V2 keeps its frozen placement.
+ const afterHero=html=>bodyText(html.slice(html.indexOf('<div class="elementor elementor-11737 original-reference">')).replace(/<div class="method-callout">[\s\S]*?<\/div>/,''));
  assert.equal(afterHero(main),afterHero(v2));
  assert.equal((v2.match(/id="avaliacoes"/g)||[]).length,1);
  assert.ok(v2.indexOf('id="avaliacoes"')<v2.indexOf('id="camadas"'));

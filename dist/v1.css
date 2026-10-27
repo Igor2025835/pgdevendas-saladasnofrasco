@@ -9,6 +9,19 @@
 .sales-v1 #avaliacoes{background:#CBCEAB}
 .sales-v1 #camadas{background:#fff7e7}
 .sales-v1 #camadas .lesson-watch-heading{text-transform:none;max-width:680px;line-height:1.35}
+.sales-v1 .hero .hero-lesson-media{position:relative;aspect-ratio:9/16;overflow:hidden;background:#173f35;isolation:isolate}
+.sales-v1 .hero-lesson-media video{display:block;width:100%;height:100%;object-fit:contain}
+.sales-v1 .hero-lesson-overlay{position:absolute;inset:0;display:grid;place-items:center;pointer-events:none}
+.sales-v1 .hero-lesson-play{pointer-events:auto;display:flex;flex-direction:column;align-items:center;gap:8px;width:min(78%,260px);padding:17px 15px;border:1px solid #ffffffa0;border-radius:16px;background:rgb(184 73 7 / .88);color:#fff;font:600 14px/1.4 'Poppins',Arial,sans-serif;text-align:center;cursor:pointer;box-shadow:0 5px 24px #152c2340}
+.sales-v1 .hero-lesson-play[hidden]{display:none!important}
+.sales-v1 .hero-lesson-play:focus-visible{outline:3px solid #fff;outline-offset:5px}
+.sales-v1 .hero-lesson-play svg{width:39px;height:39px;fill:none;stroke:currentColor;stroke-width:2}
+.sales-v1 .hero-lesson-hint{font-size:13px;font-weight:700}
+.sales-v1 .hero .method-callout{max-width:540px;margin:22px auto 0;padding:19px 17px;gap:12px}
+.sales-v1 .hero .method-callout p{margin:0;font-size:14px;line-height:1.65}
+.sales-v1 .hero .method-callout em{font:800 15px/1.65 'Poppins',Arial,sans-serif}
+.sales-v1 .hero .method-preservation-note{display:block;margin-top:9px;padding-top:9px;border-top:1px solid #c9510c25;color:#96460d;font-weight:600}
+.sales-v1 .hero .hero-action{margin-top:24px}
 @media(max-width:600px){
  .sales-v1 .contents-image-frame{margin-bottom:17px}
  .sales-v1 .contents-taste-section{padding:40px 0}

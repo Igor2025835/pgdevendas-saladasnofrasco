@@ -1,14 +1,17 @@
 const icon=name=>`<svg aria-hidden="true"><use href="#${name}"/></svg>`;
-export function reviewHero(html){
+export function reviewHero(html,callout){
  html=html.replace(/<h1>[\s\S]*?<\/h1>/,'<h1>60 receitas de saladas <em>saborosas e rápidas</em> para teres sempre em casa, que nem parecem “comida de dieta”.</h1>');
  const oldSubtitle=html.match(/<p class="hero-description">[\s\S]*?<\/p>/)?.[0]||'';
- const subtitle='<p class="hero-description">Crie saladas <strong>nutritivas, saudáveis e cheias de sabor</strong>, que ajudam a emagrecer, para toda a semana em apenas <strong>20 minutos.</strong></p>';
+ const subtitle=callout;
  html=html.replace(oldSubtitle,'').replace(/(<\/button>)(\s*<div class="hero-action">)/,'$1'+subtitle+'$2');
  html=html.replace(/<p class="hero-promise">[\s\S]*?<\/p>/,'').replace('<p>Coma melhor sem viver de alface e tomate.</p>','');
  if(!html.includes('class="hero-badge-wrap"'))html=html.replace('</h1>','</h1>'+"<div class=\"hero-badge-wrap\"><span class=\"hero-badge\"><svg aria-hidden=\"true\"><use href=\"#check\"/></svg>Mantenha durante 7 dias sem murchar.</span></div>");
- html=html.replace(/<button class="hero-video[\s\S]*?<\/button>/,'<div class="hero-main-image hero-media"><video class="hero-preview-video" id="hero-preview-video" width="1080" height="1584" autoplay muted loop playsinline preload="none" disablepictureinpicture aria-label="Preparação de saladas deliciosas em frascos, sem som" data-src-small="assets/hero-saladas-preparacao-v1-480.mp4" data-src-large="assets/hero-saladas-preparacao-v1-640.mp4"></video></div>');
+ html=html.replace(/<button class="hero-video[\s\S]*?<\/button>/,heroLessonPreview());
  html=html.replace(/<div class="trust-line">[\s\S]*?<\/div>/,'');
  return html.replace('7 dias de garantia','14 dias de garantia').replace('App incluído','App no plano completo');
+}
+function heroLessonPreview(){
+ return '<div class="hero-main-image hero-lesson-media"><video id="hero-lesson-video" width="540" height="960" autoplay muted loop playsinline preload="none" disablepictureinpicture data-preview-src="assets/hero-aula-loop-5s-v1.mp4" data-full-src="assets/metodo-aula-previa-v1.mp4" aria-label="Prévia da aula: os primeiros cinco segundos em loop, sem som"></video><div class="hero-lesson-overlay"><button type="button" class="hero-lesson-play" aria-controls="hero-lesson-video" aria-label="Ver a prévia completa da aula desde o início, com som"><span class="hero-lesson-status">Vê o método das camadas</span><svg viewBox="0 0 32 32" aria-hidden="true"><path d="m12 7 15 9-15 9Z"/></svg><span class="hero-lesson-hint">Clica para ver com som</span></button></div></div>';
 }
 export function reviewMethod(html){
  const photos=[['metodo-camadas-v1.png','Salada em frasco com grão, frango, vegetais e folhas em camadas'],['metodo-refeicao-v1.png','Salada com frango grelhado, quinoa e vegetais coloridos'],['metodo-molho-v1.png','Molho cremoso de ervas sobre uma salada generosa e colorida']];
