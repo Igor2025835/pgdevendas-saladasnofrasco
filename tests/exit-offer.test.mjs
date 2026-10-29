@@ -96,7 +96,7 @@ test('rendered pages retain distinct prices, checkout destinations, images and t
  const special='https://pay.hotmart.com/O108101669E?off=j1f0nk4j&amp;checkoutMode=10&amp;src=backredirect';
  assert.equal((main.match(/href="https:\/\/pay.hotmart.com\/O108101669E\?checkoutMode=10"/g)||[]).length,1);
  assert.equal((main.match(/href="#oferta"/g)||[]).length,11);
- assert.ok(main.includes('<strong>11</strong><span class="plan-price-cents">,90</span>'));
+ assert.ok(main.includes('<strong>9</strong><span class="plan-price-cents">,90</span>'));
  const specialLinks=[...reduced.matchAll(/<a\b[^>]*href="(https:\/\/pay.hotmart.com[^\"]+)"/g)].map(m=>m[1]);
  assert.equal(specialLinks.length,2);assert.ok(specialLinks.every(h=>h===special));assert.ok(!reduced.includes('src="exit-offer.js'));
  assert.ok(reduced.includes('backredirect-superdesconto-frascos-v1-1200.webp'));assert.ok(!reduced.includes('plan-card'));assert.ok(!reduced.includes('bd-faq'));
