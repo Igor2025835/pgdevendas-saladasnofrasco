@@ -68,15 +68,15 @@ html=html.replace(/<meta name="description" content="[^"]*">/,'<meta name="descr
 
 const guarantee='<div class="plan-guarantee gro-guarantee"><svg aria-hidden="true"><use href="#shield"/></svg><p><strong>Tens 14 dias completos para testar.</strong>Se não ficares viciada nas saladas, se não poupares tempo e dinheiro, se não notares diferença… é só pedir o reembolso. Eu devolvo 100%. Sem perguntas.</p></div>';
 html=html.replace(/<div class="plan-guarantee">[\s\S]*?<\/div>/,guarantee);
-html=html.replace(/(<div class="plan-price"><span>[^<]*<\/span><div>)/,'$1<del class="gro-price-before" aria-label="Preço anterior: 47 euros">47 €</del>');
+html=html.replace(/(<div class="plan-price"><span>[^<]*<\/span>)<div>/,'$1<p class="gro-price-before">De <del>47,90 €</del></p><div><span class="gro-price-por">por</span>');
 
 const bonuses=html.match(/<section class="new-bonuses section" id="bonus">[\s\S]*?<\/section>/)?.[0];
 if(!bonuses)throw Error('Missing bonus section');
 let bonusNumber=0;
 const bonusCopy=[
- ['Molhos saudáveis e irresistíveis','Molhos caseiros que transformam qualquer salada numa refeição com sabor de verdade. Feitos com ingredientes simples que já tens em casa.'],
- ['Saladas proteicas','Receitas completas com proteína, pensadas para te deixar satisfeita por mais tempo e apoiar o emagrecimento ou a manutenção da forma — sem passares fome.'],
- ['App de receitas','Todas as receitas organizadas no telemóvel. Filtra pelo que tens em casa, gera lista de compras, planeia a semana e escolhe o tipo de salada em segundos.']
+ ['Molhos saudáveis e irresistíveis','Mais sabor com molhos caseiros e ingredientes simples.'],
+ ['Saladas proteicas','Proteína e saciedade para apoiar o emagrecimento ou manter a forma.'],
+ ['App de receitas','Filtra ingredientes, cria a lista de compras e organiza a semana.']
 ];
 const updatedBonuses=bonuses.replace(/<h3>[^<]*<\/h3><p>[\s\S]*?<\/p>/g,()=>{
  const [title,description]=bonusCopy[bonusNumber++];

@@ -66,7 +66,7 @@ test('GRO keeps hero copy after video, illustrated pain, and decision section af
 });
 
 test('GRO keeps regular and reduced checkouts consistent with their CTAs and tracking',()=>{
- assert.ok(gro.includes('<del class="gro-price-before" aria-label="Preço anterior: 47 euros">47 €</del>'));
+ assert.ok(gro.includes('<p class="gro-price-before">De <del>47,90 €</del></p>'));
  assert.ok(gro.includes('Acesso vitalício + 70% de desconto + bónus'));
  assert.ok(!gro.includes('Cerca de 70%'));
  assert.ok(gro.includes('id="gro-countdown" role="timer"'));
@@ -88,10 +88,10 @@ test('GRO keeps regular and reduced checkouts consistent with their CTAs and tra
  assert.ok(!gro.includes("fbq('init'"));
 });
 
-test('GRO places old price beside current price and includes the updated bonus descriptions and CTA',()=>{
- assert.match(gro,/<div><del class="gro-price-before"[^>]*>47 €<\/del><strong>14<\/strong>/);
+test('GRO displays De/por pricing and concise bonus descriptions with the approved CTA',()=>{
+ assert.match(gro,/<p class="gro-price-before">De <del>47,90 €<\/del><\/p><div><span class="gro-price-por">por<\/span><strong>14<\/strong>/);
  const section=gro.match(/<section class="new-bonuses section" id="bonus">[\s\S]*?<\/section>/)[0];
- for(const copy of ['Molhos saudáveis e irresistíveis','Feitos com ingredientes simples que já tens em casa.','apoiar o emagrecimento ou a manutenção da forma — sem passares fome.','Filtra pelo que tens em casa, gera lista de compras, planeia a semana e escolhe o tipo de salada em segundos.'])assert.ok(section.includes(copy),copy);
+ for(const copy of ['Molhos saudáveis e irresistíveis','Mais sabor com molhos caseiros e ingredientes simples.','Proteína e saciedade para apoiar o emagrecimento ou manter a forma.','Filtra ingredientes, cria a lista de compras e organiza a semana.'])assert.ok(section.includes(copy),copy);
  assert.equal((section.match(/Incluído no plano/g)||[]).length,3);
  assert.match(section,/data-gro-bonus-cta[^>]*>Quero as minhas saladas prontas esta semana/);
 });
