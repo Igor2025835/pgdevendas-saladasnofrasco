@@ -36,7 +36,7 @@ test('GRO keeps hero copy after video, illustrated pain, and decision section be
  assert.ok(gro.includes('Eu devolvo 100%. Sem perguntas.'));
  assert.ok(gro.includes('saborosas e rápidas</em> para teres sempre em casa — que nem parecem “comida de dieta”.'));
  const sections=[...gro.matchAll(/<section\b[^>]*>[\s\S]*?<\/section>/g)].map(m=>m[0]);
- assert.ok(sections.length>=10);
+ assert.ok(sections.length>=9);
  for(const section of sections)assert.match(section,/<(?:img|video)\b/,'Section without media: '+section.slice(0,100));
  assert.ok(sections[0].includes('hero-lesson-video'));
  assert.ok(sections[1].includes('id="gro-dores"'));
@@ -44,8 +44,14 @@ test('GRO keeps hero copy after video, illustrated pain, and decision section be
  assert.ok(hero.indexOf('</video>')<hero.indexOf('class="gro-value"'));
  assert.ok(hero.indexOf('class="gro-value"')<hero.indexOf('class="gro-support"'));
  assert.ok(hero.indexOf('class="gro-support"')<hero.indexOf('class="hero-action"'));
- assert.ok(sections[1].includes('/assets/gro-dores-refeicoes-v1-480.webp'));
- assert.ok(sections[1].includes('srcset="/assets/gro-dores-refeicoes-v1-480.webp 480w, /assets/gro-dores-refeicoes-v1-784.webp 784w"'));
+ assert.ok(sections[1].includes('/assets/gro-comparacao-antes-v1-640.webp'));
+ assert.ok(sections[1].includes('/assets/gro-comparacao-depois-v1-640.webp'));
+ assert.ok(sections[1].includes('class="gro-method-answer"'));
+ assert.ok(sections[1].includes('class="contents-taste-section gro-pain-taste"'));
+ assert.ok(sections[1].indexOf('class="gro-method-answer"')<sections[1].indexOf('id="saladas-com-sabor"'));
+ assert.ok(sections[1].includes('Até quem não gosta de salada'));
+ assert.ok(sections[1].includes('class="contents-video"'));
+ assert.equal((gro.match(/id="saladas-com-sabor"/g)||[]).length,1);
  const closingIndex=sections.findIndex(section=>section.includes('id="gro-closing-title"'));
  const offerIndex=sections.findIndex(section=>section.includes('id="oferta"'));
  assert.equal(closingIndex+1,offerIndex);

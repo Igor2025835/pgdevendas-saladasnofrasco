@@ -36,16 +36,25 @@ const newHero=`<section class="hero gro-hero" aria-labelledby="gro-title"><div c
  <p class="gro-support">Prepara as saladas da semana em menos de 20 minutos e conserva-as até 7 dias sem murcharem.</p>
  <div class="hero-action"><a class="button button-primary" href="#oferta">${primary}${arrow}</a></div>
  </div></section>`;
+const tasteSection=html.match(/<section class="contents-taste-section"[\s\S]*?<\/section>/)?.[0];
+if(!tasteSection)throw Error('Missing original taste video section');
+// Keep its heading, video and CTA together inside the pain/method section.
+const tasteContent=tasteSection.replace('<section class="contents-taste-section"','<div class="contents-taste-section gro-pain-taste"').replace(/<\/section>$/,'</div>');
+html=html.replace(tasteSection,'');
+const comparisonImage=(side,alt,height)=>photo(`gro-comparacao-${side}-v1-640.webp`,alt,`srcset="assets/gro-comparacao-${side}-v1-640.webp 640w, assets/gro-comparacao-${side}-v1-1168.webp 1168w" sizes="(max-width: 700px) calc(200vw - 64px), 900px" width="1168" height="${height}"`);
 const pain=`<section class="routine-section gro-pain" id="gro-dores" aria-labelledby="gro-pain-title"><div class="review-wrap">
  <h2 class="review-heading" id="gro-pain-title">Isto acontece contigo?</h2>
- <div class="gro-pain-layout"><figure class="gro-pain-image">${photo('gro-dores-refeicoes-v1-480.webp','Mulher à mesa com uma refeição encomendada, frustrada por voltar a adiar os seus objetivos','srcset="assets/gro-dores-refeicoes-v1-480.webp 480w, assets/gro-dores-refeicoes-v1-784.webp 784w" sizes="(max-width: 700px) calc(100vw - 32px), 390px" width="784" height="1168"')}</figure><div>
+ <div class="gro-pain-layout"><figure class="gro-pain-image gro-before-after" aria-label="Comparação entre a rotina de encomendar comida e a preparação de saladas saborosas">
+ <picture class="gro-comparison-panel gro-comparison-before">${comparisonImage('antes','Antes: mulher frustrada à mesa com pizza, hambúrguer e batatas fritas',784)}</picture>
+ <picture class="gro-comparison-panel gro-comparison-after">${comparisonImage('depois','Depois: mulher com saladas em frascos, frango, carne, atum e molhos cremosos',783)}</picture>
+ </figure><div>
  <ul class="routine-grid gro-pain-list">
  <li class="routine-item"><span><svg aria-hidden="true"><use href="#leaf"/></svg></span><p>Queres comer saudável mas as saladas que fazes são sem graça e enjoam em 2 dias</p></li>
  <li class="routine-item"><span><svg aria-hidden="true"><use href="#clock"/></svg></span><p>Dizes “amanhã começo” e amanhã já estás a pedir delivery</p></li>
  <li class="routine-item"><span><svg aria-hidden="true"><use href="#jar"/></svg></span><p>Gastas 8-12€ numa salada de restaurante e ainda ficas com fome</p></li>
  <li class="routine-item"><span><svg aria-hidden="true"><use href="#leaf"/></svg></span><p>A alface murcha, o dinheiro vai pelo ralo e a culpa fica</p></li>
- </ul></div></div><p class="gro-pain-answer">Se isto é a tua realidade, o problema não és tu.<strong>É o método.</strong></p>
- ${cta(painCta)}</div></section>`;
+ </ul></div></div><div class="gro-method-answer"><p class="gro-pain-answer">Se isto é a tua realidade, o problema não és tu.<strong>É o método.</strong></p></div>
+ ${tasteContent}</div></section>`;
 // Keep the pain section immediately after the hero, avoiding repetition.
 html=html.replace(/<section class="routine-section">[\s\S]*?<\/section>/,'');
 html=html.replace(hero,newHero+pain);
