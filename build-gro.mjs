@@ -29,7 +29,7 @@ const hero=html.match(/<section class="hero">[\s\S]*?<\/section>/)?.[0];
 if(!hero)throw Error('Missing original hero');
 const heroMedia=elementRange(hero,'class="hero-main-image hero-lesson-media"').markup;
 const newHero=`<section class="hero gro-hero" aria-labelledby="gro-title"><div class="wrap">
- <h1 id="gro-title"><span class="gro-hook">Pára de mentir a ti mesma.</span><span class="gro-hook-explanation">Enquanto continuares com saladas e dietas sem sabor, nunca vais alcançar o corpo e a rotina que queres. <span class="gro-warning">E vais desistir outra vez daqui a poucos dias… como sempre.</span></span></h1>
+ <h1 id="gro-title"><span class="gro-hook">Pára de mentir a ti mesma.</span><span class="gro-hook-explanation">Enquanto continuares com saladas e dietas sem sabor, nunca vais alcançar o corpo e a rotina que queres. E vais <span class="gro-warning">desistir outra vez daqui a poucos dias… como sempre.</span></span></h1>
  ${heroMedia}
  <p class="gro-value">60 receitas de saladas <em>saborosas e rápidas</em> para teres sempre em casa — que nem parecem “comida de dieta”.</p>
  <div class="hero-action"><a class="button button-primary" href="#oferta">${primary}${arrow}</a><ul class="gro-hero-badges" aria-label="Condições de acesso">
@@ -85,7 +85,7 @@ const closing=`<section class="gro-closing section" aria-labelledby="gro-closing
  </ol></div>
  <div class="gro-decision"><p><strong>Não existe meio-termo.</strong><br>A escolha é tua. O resultado também.</p><p>Ou mudas o método agora, ou aceitas o resultado de sempre.</p></div>
  ${cta(completeCta)}</div></section>`;
-html=html.replace('<section class="purchase-section purchase-plans"',closing+'<section class="purchase-section purchase-plans"');
+html=html.replace('</main>',closing+'</main>');
 
 // Make every sales CTA one of the approved lines. The €7.90 claim appears ONLY
 // on the existing reduced checkout, which has its own Hotmart offer parameter.

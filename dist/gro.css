@@ -12,9 +12,9 @@
 .sales-gro .header .brand img{width:220px;height:auto}
 .sales-gro .gro-hero{padding:26px 0 36px}
 .sales-gro .gro-hero h1{max-width:760px;margin:0 auto;color:#3c342b;font-family:'Sora',Arial,sans-serif;letter-spacing:-.025em;text-wrap:pretty}
-.sales-gro .gro-hook{display:block;font-size:clamp(28px,3.4vw,36px);line-height:1.3;font-weight:750;color:#FB6E08}
+.sales-gro .gro-hook{display:block;font-size:clamp(34px,4.1vw,44px);line-height:1.25;font-weight:750;color:#FB6E08}
 .sales-gro .gro-hook-explanation{display:block;max-width:670px;margin:13px auto 0;font-size:clamp(18px,2.1vw,22px);line-height:1.65;font-weight:700;letter-spacing:-.015em}
-.sales-gro .gro-warning{color:#FB6E08;font:inherit;letter-spacing:inherit}
+.sales-gro .gro-warning{color:#516927;font:inherit;letter-spacing:inherit}
 .sales-gro #oferta .gro-price-before{margin:0 0 15px;color:#697461;font:500 15px/1.5 'Poppins',Arial,sans-serif}
 .sales-gro .gro-price-before del{font-size:20px;text-decoration-thickness:2px}
 .sales-gro .gro-value{max-width:650px;margin:27px auto 0;color:#183f34;font:500 clamp(15px,1.7vw,18px)/1.75 'Sora',Arial,sans-serif;text-wrap:pretty}
@@ -23,7 +23,7 @@
 .sales-gro .gro-hero .hero-main-image{width:min(100%,440px);margin:35px auto 0}
 .sales-gro .button,.sales-gro .elementor-button{white-space:normal;overflow-wrap:break-word;text-transform:none;font-family:'Poppins',Arial,sans-serif;font-size:14px;line-height:1.45;min-height:58px;text-align:center;max-width:100%}
 .sales-gro .hero-action .button{width:min(100%,460px)}
-.sales-gro .gro-hero .hero-action .button-primary{animation:recipes-cta-pulse 2s ease-in-out infinite;transform-origin:center}
+.sales-gro .button,.sales-gro .elementor-button,.sales-gro .text-link,.sales-gro .exit-offer-checkout{animation:recipes-cta-pulse 2s ease-in-out infinite;transform-origin:center}
 .sales-gro .gro-hero-badges{display:flex;flex-wrap:wrap;justify-content:center;gap:9px;list-style:none;padding:0;margin:19px auto 0;max-width:680px}
 .sales-gro .gro-hero-badges li{display:flex;align-items:center;gap:7px;padding:8px 11px;border:1px solid #b9c59c;border-radius:30px;background:#e8ecd9;color:#31543b;font:600 11px/1.4 'Poppins',Arial,sans-serif}
 .sales-gro .gro-hero-badges svg{flex:0 0 17px;width:17px;height:17px;fill:none;stroke:currentColor;stroke-width:1.6}
@@ -42,13 +42,12 @@
 .sales-gro .gro-pain-list{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;list-style:none;padding:0;margin:24px 0 0}
 .sales-gro .gro-pain-list .routine-item{width:100%;min-width:0;padding:16px;gap:12px}
 .sales-gro .gro-pain-list .routine-item p{margin:0;line-height:1.6}
-.sales-gro .gro-method-answer{max-width:900px;margin:28px auto 0;padding:25px 20px;background:#315c43;border-radius:12px}
-.sales-gro .gro-pain-answer{max-width:650px;margin:0 auto;text-align:center;font:500 16px/1.6 'Poppins',Arial,sans-serif;color:#fff}
-.sales-gro .gro-pain-answer strong{display:block;font-weight:800;font-size:22px;margin-top:4px}
+.sales-gro .gro-method-answer{max-width:900px;margin:28px auto 0;padding:28px;background:#edf3e5;border-left:4px solid #516927;border-radius:0}
+.sales-gro .gro-pain-answer{max-width:650px;margin:0 auto;text-align:center;font:500 17px/1.75 'Poppins',Arial,sans-serif;color:#315c43}
+.sales-gro .gro-pain-answer strong{display:block;font-weight:800;font-size:26px;margin-top:6px}
 .sales-gro .gro-pain-taste{padding:48px 0 0;background:transparent;text-align:center}
 .sales-gro .gro-pain-taste .review-wrap{width:100%;max-width:900px}
 .sales-gro .gro-pain-taste h2{max-width:680px;margin:0 auto}
-.sales-gro .gro-pain-taste .button-primary{animation:recipes-cta-pulse 2s ease-in-out infinite;transform-origin:center}
 .sales-gro .gro-guarantee{align-items:flex-start;padding:20px 17px}
 .sales-gro .gro-guarantee p{line-height:1.7}
 .sales-gro .gro-guarantee strong{display:block;margin-bottom:9px}
@@ -78,7 +77,7 @@
  .sales-gro .header{height:auto;padding:24px 0 18px}
  .sales-gro .header .brand img{width:180px}
  .sales-gro .gro-hero{padding-top:22px}
- .sales-gro .gro-hook{font-size:28px}
+ .sales-gro .gro-hook{font-size:34px}
  .sales-gro .gro-hook-explanation{font-size:18px;line-height:1.65;margin-top:11px}
  .sales-gro .gro-value{font-size:15px;line-height:1.75;margin-top:25px}
  .sales-gro .gro-hero .hero-main-image{max-width:360px;margin-top:32px}
@@ -100,4 +99,4 @@
  .sales-gro .gro-realities li{padding:17px;font-size:13px}
  .sales-gro .button,.sales-gro .elementor-button{font-size:13px;padding:15px 16px}
 }
-@media(prefers-reduced-motion:reduce){.sales-gro .button,.sales-gro .elementor-button{animation:none!important;transition:none}}
+@media(prefers-reduced-motion:reduce){.sales-gro .button,.sales-gro .elementor-button,.sales-gro .text-link,.sales-gro .exit-offer-checkout{animation:none!important;transition:none}}

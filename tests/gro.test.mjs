@@ -27,11 +27,11 @@ test('GRO preserves all original image/video files and resolves local files on e
  assert.ok(gro.includes('data-full-src="/assets/metodo-aula-previa-v1.mp4"'));
 });
 
-test('GRO keeps hero copy after video, illustrated pain, and decision section before offer',()=>{
+test('GRO keeps hero copy after video, illustrated pain, and decision section after FAQ',()=>{
  assert.equal((gro.match(/<h1\b/g)||[]).length,1);
  assert.ok(gro.includes('Pára de mentir a ti mesma.'));
  assert.ok(gro.includes('Enquanto continuares com saladas e dietas sem sabor, nunca vais alcançar o corpo e a rotina que queres.'));
- assert.ok(gro.includes('class="gro-warning">E vais desistir outra vez daqui a poucos dias… como sempre.'));
+ assert.ok(gro.includes('E vais <span class="gro-warning">desistir outra vez daqui a poucos dias… como sempre.'));
  assert.ok(gro.includes('O resultado também.'));
  assert.ok(gro.includes('Eu devolvo 100%. Sem perguntas.'));
  assert.ok(gro.includes('saborosas e rápidas</em> para teres sempre em casa — que nem parecem “comida de dieta”.'));
@@ -57,9 +57,9 @@ test('GRO keeps hero copy after video, illustrated pain, and decision section be
  assert.ok(sections[1].includes('class="contents-video"'));
  assert.equal((gro.match(/id="saladas-com-sabor"/g)||[]).length,1);
  const closingIndex=sections.findIndex(section=>section.includes('id="gro-closing-title"'));
- const offerIndex=sections.findIndex(section=>section.includes('id="oferta"'));
- assert.equal(closingIndex+1,offerIndex);
- assert.match(sections[closingIndex],/href="#oferta"/);
+ const faqIndex=sections.findIndex(section=>section.includes('class="gro-faq"'));
+ assert.equal(faqIndex+1,closingIndex);
+ assert.match(sections[closingIndex],/href="https:\/\/pay\.hotmart\.com\/O108101669E\?checkoutMode=10"/);
  assert.equal((gro.match(/class="routine-section/g)||[]).length,1);
  assert.ok(!main.includes('gro-dores'));
  assert.ok(!gro.includes('</h2><figure class="gro-faq-media"'));
