@@ -20,6 +20,10 @@ test('returning visitors keep their version; direct GRO and explicit source over
  assert.equal(allocateLanding('https://s.test/',`${cookieName}=invalid`,()=>0).variant,'pg1');
 });
 test('redirects retain all ad parameters and finish without loops on all landing paths',()=>{
+ for(const encoded of ['check%20%26%20keep','check+%26+keep']){
+  assert.equal(allocateLanding('https://s.test/?src=pg1&utm_campaign='+encoded,`${cookieName}=pg1`).redirect,null);
+  assert.equal(allocateLanding('https://s.test/gro?src=gro&utm_campaign='+encoded,`${cookieName}=gro`).redirect,null);
+ }
  for(const path of ['/','/index.html','/gro','/gro/','/gro/index.html']){
   const input=new URL('https://s.test'+path+'?utm_source=meta&utm_campaign=Ol%C3%A1+%26+teste&fbclid=abc&sck=encoded&src=ad123#oferta');
   const r=allocateLanding(input.href,'',()=>0.7),target=new URL(r.redirect);

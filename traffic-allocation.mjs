@@ -11,7 +11,9 @@ export function allocateLanding(input, cookie = '', random = Math.random) {
   const source = url.searchParams.get('src');
   const variant = route === 'gro' ? 'gro' : valid(source) ? source : valid(saved) ? saved : random() < 0.5 ? 'pg1' : 'gro';
   if (source && !valid(source) && !url.searchParams.has('ad_src')) url.searchParams.set('ad_src', source);
-  url.searchParams.set('src', variant);
+  // Do not reserialize an already-correct query. Vercel may normalize + to %20
+  // between requests; comparing those encodings after .set() causes a loop.
+  if (source !== variant || url.searchParams.getAll('src').length !== 1) url.searchParams.set('src', variant);
   url.pathname = variant === 'gro' ? '/gro' : '/';
   const headers = {
     'Cache-Control': 'private, no-store',
