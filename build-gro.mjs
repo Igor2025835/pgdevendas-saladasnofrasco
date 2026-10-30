@@ -38,7 +38,7 @@ const newHero=`<section class="hero gro-hero" aria-labelledby="gro-title"><div c
 const tasteSection=html.match(/<section class="contents-taste-section"[\s\S]*?<\/section>/)?.[0];
 if(!tasteSection)throw Error('Missing original taste video section');
 // Keep its heading, video and CTA together inside the pain/method section.
-const tasteContent=tasteSection.replace('<section class="contents-taste-section"','<div class="contents-taste-section gro-pain-taste"').replace(/<\/section>$/,'</div>');
+const tasteContent=tasteSection.replace('<section class="contents-taste-section"','<div class="contents-taste-section gro-pain-taste"').replace('Até quem não gosta de salada','Até quem odeia salada').replace(/<\/section>$/,'</div>');
 html=html.replace(tasteSection,'');
 const comparisonImage=(side,alt,height)=>photo(`gro-comparacao-${side}-v1-640.webp`,alt,`srcset="assets/gro-comparacao-${side}-v1-640.webp 640w, assets/gro-comparacao-${side}-v1-1168.webp 1168w" sizes="(max-width: 700px) calc(200vw - 64px), 900px" width="1168" height="${height}"`);
 const pain=`<section class="routine-section gro-pain" id="gro-dores" aria-labelledby="gro-pain-title"><div class="review-wrap">

@@ -50,7 +50,7 @@ test('GRO keeps hero copy after video, illustrated pain, and decision section be
  assert.ok(sections[1].includes('class="gro-method-answer"'));
  assert.ok(sections[1].includes('class="contents-taste-section gro-pain-taste"'));
  assert.ok(sections[1].indexOf('class="gro-method-answer"')<sections[1].indexOf('id="saladas-com-sabor"'));
- assert.ok(sections[1].includes('Até quem não gosta de salada'));
+ assert.ok(sections[1].includes('Até quem odeia salada<br><strong>vai querer repetir.</strong>'));
  assert.ok(sections[1].includes('class="contents-video"'));
  assert.equal((gro.match(/id="saladas-com-sabor"/g)||[]).length,1);
  const closingIndex=sections.findIndex(section=>section.includes('id="gro-closing-title"'));

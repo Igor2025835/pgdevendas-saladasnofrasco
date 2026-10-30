@@ -41,9 +41,10 @@
 .sales-gro .gro-method-answer{max-width:900px;margin:28px auto 0;padding:25px 20px;background:#315c43;border-radius:12px}
 .sales-gro .gro-pain-answer{max-width:650px;margin:0 auto;text-align:center;font:500 16px/1.6 'Poppins',Arial,sans-serif;color:#fff}
 .sales-gro .gro-pain-answer strong{display:block;font-weight:800;font-size:22px;margin-top:4px}
-.sales-gro .gro-pain-taste{padding:30px 0 0;background:transparent;text-align:center}
+.sales-gro .gro-pain-taste{padding:48px 0 0;background:transparent;text-align:center}
 .sales-gro .gro-pain-taste .review-wrap{width:100%;max-width:900px}
 .sales-gro .gro-pain-taste h2{max-width:680px;margin:0 auto}
+.sales-gro .gro-pain-taste .button-primary{animation:recipes-cta-pulse 2s ease-in-out infinite;transform-origin:center}
 .sales-gro .gro-guarantee{align-items:flex-start;padding:20px 17px}
 .sales-gro .gro-guarantee p{line-height:1.7}
 .sales-gro .gro-guarantee strong{display:block;margin-bottom:9px}
@@ -85,7 +86,7 @@
  .sales-gro .gro-before-after{grid-template-columns:repeat(2,minmax(0,1fr));gap:4px}
  .sales-gro .gro-pain-list{grid-template-columns:1fr}
  .sales-gro .gro-method-answer{padding:21px 17px;margin-top:24px}
- .sales-gro .gro-pain-taste{padding-top:25px}
+ .sales-gro .gro-pain-taste{padding-top:40px}
  .sales-gro .gro-closing-layout figure img{aspect-ratio:4/3}
  .sales-gro .gro-pain-list .routine-item{padding:14px}
  .sales-gro .gro-pain-list .routine-item p{font-size:13px}
