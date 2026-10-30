@@ -30,6 +30,8 @@ test('GRO preserves all original image/video files and resolves local files on e
 test('GRO keeps hero copy after video, illustrated pain, and decision section before offer',()=>{
  assert.equal((gro.match(/<h1\b/g)||[]).length,1);
  assert.ok(gro.includes('Pára de mentir a ti mesma.'));
+ assert.ok(gro.includes('Enquanto continuares com saladas e dietas sem sabor, nunca vais alcançar o corpo e a rotina que queres.'));
+ assert.ok(gro.includes('class="gro-warning">E vais desistir outra vez daqui a poucos dias… como sempre.'));
  assert.ok(gro.includes('O resultado também.'));
  assert.ok(gro.includes('Eu devolvo 100%. Sem perguntas.'));
  assert.ok(gro.includes('saborosas e rápidas</em> para teres sempre em casa — que nem parecem “comida de dieta”.'));
@@ -54,6 +56,10 @@ test('GRO keeps hero copy after video, illustrated pain, and decision section be
 });
 
 test('GRO keeps regular and reduced checkouts consistent with their CTAs and tracking',()=>{
+ assert.ok(gro.includes('<p class="gro-price-before">Antes <del>47 €</del></p>'));
+ assert.ok(gro.includes('Cerca de 70% de desconto'));
+ assert.ok(gro.includes('id="gro-countdown" role="timer"'));
+ assert.ok(gro.includes('>01:53:00</span>'));
  assert.ok(gro.includes('<strong>14</strong><span class="plan-price-cents">,90</span>'));
  const approved=new Set(['Quero as minhas saladas prontas esta semana','Quero parar de comer saladas sem graça','Garantir o meu acesso agora – 7,90€','Sim, quero o plano completo antes que acabe']);
  for(const match of gro.matchAll(/<a\b([^>]*)>([\s\S]*?)<\/a>/g)){
@@ -66,7 +72,7 @@ test('GRO keeps regular and reduced checkouts consistent with their CTAs and tra
   if(label.includes('7,90'))assert.ok(href.includes('off=j1f0nk4j')&&href.includes('src=backredirect'));
   else assert.ok(href==='#oferta'||href==='https://pay.hotmart.com/O108101669E?checkoutMode=10');
  }
- for(const script of ['scripts/utms/latest.js','scripts/pixel/pixel.js','hero-lesson.js?v=','recovery-attribution.js?v=','exit-offer.js?v='])assert.equal(gro.split(script).length-1,1,script);
+ for(const script of ['scripts/utms/latest.js','scripts/pixel/pixel.js','hero-lesson.js?v=','recovery-attribution.js?v=','exit-offer.js?v=','gro-promo.js?v='])assert.equal(gro.split(script).length-1,1,script);
  assert.ok(gro.includes('z0pryz1i8w'));
  assert.ok(!gro.includes("fbq('init'"));
 });

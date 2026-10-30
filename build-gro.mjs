@@ -29,7 +29,8 @@ const hero=html.match(/<section class="hero">[\s\S]*?<\/section>/)?.[0];
 if(!hero)throw Error('Missing original hero');
 const heroMedia=elementRange(hero,'class="hero-main-image hero-lesson-media"').markup;
 const newHero=`<section class="hero gro-hero" aria-labelledby="gro-title"><div class="wrap">
- <h1 id="gro-title"><span class="gro-hook">Pára de mentir a ti mesma.</span><span class="gro-hook-explanation">Se continuares com o mesmo método, daqui a sete dias vais estar outra vez a comer mal, a adiar os teus objetivos e a sentir a mesma frustração de sempre.</span></h1>
+ <h1 id="gro-title"><span class="gro-hook">Pára de mentir a ti mesma.</span><span class="gro-hook-explanation">Enquanto continuares com saladas e dietas sem sabor, nunca vais alcançar o corpo e a rotina que queres.</span></h1>
+ <p class="gro-warning">E vais desistir outra vez daqui a poucos dias… como sempre.</p>
  ${heroMedia}
  <p class="gro-value">60 receitas de saladas <em>saborosas e rápidas</em> para teres sempre em casa — que nem parecem “comida de dieta”.</p>
  <p class="gro-support">Prepara as saladas da semana em menos de 20 minutos e conserva-as até 7 dias sem murcharem.</p>
@@ -49,11 +50,14 @@ const pain=`<section class="routine-section gro-pain" id="gro-dores" aria-labell
 html=html.replace(/<section class="routine-section">[\s\S]*?<\/section>/,'');
 html=html.replace(hero,newHero+pain);
 html=html.replace('class="elementor-kit-5 sales-v1"','class="elementor-kit-5 sales-v1 sales-gro"');
+const announcement=`<aside class="gro-announcement" aria-label="Promoção de aniversário"><div class="gro-announcement-inner"><p><strong>Promoção de aniversário · Acesso vitalício</strong><span data-gro-promo-message>Cerca de 70% de desconto</span></p><div class="gro-announcement-timer" data-gro-timer-wrap><span>Termina em</span><span id="gro-countdown" role="timer" aria-live="off" aria-label="1 hora e 53 minutos">01:53:00</span></div></div></aside>`;
+html=html.replace(/(<body\b[^>]*>)/,'$1'+announcement);
 html=html.replace(/<title>[\s\S]*?<\/title>/,'<title>Saladas prontas esta semana — Saladas Saborosas no Frasco</title>');
 html=html.replace(/<meta name="description" content="[^"]*">/,'<meta name="description" content="Muda o método: 60 receitas de saladas saborosas e rápidas, molhos, aulas e app para teres as refeições da semana organizadas.">');
 
 const guarantee='<div class="plan-guarantee gro-guarantee"><svg aria-hidden="true"><use href="#shield"/></svg><p><strong>Tens 14 dias completos para testar.</strong>Se não ficares viciada nas saladas, se não poupares tempo e dinheiro, se não notares diferença… é só pedir o reembolso. Eu devolvo 100%. Sem perguntas.</p></div>';
 html=html.replace(/<div class="plan-guarantee">[\s\S]*?<\/div>/,guarantee);
+html=html.replace('<div class="plan-price">','<div class="plan-price"><p class="gro-price-before">Antes <del>47 €</del></p>');
 
 // The inherited FAQ is an Elementor container. Give it a genuine media-led section.
 const faq=elementRange(html,'data-id="3d6ee6f"');
@@ -93,6 +97,8 @@ html=html.replace(/\b(src|href|poster|data-src|data-preview-src|data-full-src|da
  .replace(/\bsrcset="([^"]+)"/g,(_,list)=>`srcset="${list.replace(/(^|,\s*)(assets\/)/g,'$1/$2')}"`);
 const cssHash=createHash('sha256').update(await fs.readFile('dist/gro.css')).digest('hex').slice(0,10);
 html=html.replace('</head>',`<link rel="stylesheet" href="/gro.css?v=${cssHash}"></head>`);
+const promoHash=createHash('sha256').update(await fs.readFile('dist/gro-promo.js')).digest('hex').slice(0,10);
+html=html.replace('</body>',`<script src="/gro-promo.js?v=${promoHash}" defer></script></body>`);
 await fs.mkdir('dist/gro',{recursive:true});
 await fs.writeFile('dist/gro/index.html',html+'\n');
 console.log('GRO criada: copy direta, dores após o vídeo, garantia e fecho com todos os assets locais.');
