@@ -25,7 +25,10 @@ O plano atual da conta não permite GitHub Pages neste repositório privado. Par
 - Componentes e textos: `review-components.mjs`.
 - Oferta e checkout: `reference-original/offer-updated.html`.
 - Montagem da página: `build-reference.mjs`.
+- Versão de conversão em `/gro`: `build-gro.mjs`, com estilos adicionais em `dist/gro.css`.
 
 Após alterar componentes ou oferta, execute `node --use-system-ca build-reference.mjs`. O gerador usa a referência HTML preservada localmente, os arquivos em `backups/before-original-return/index.html` e estilos da página de referência. Requer rede para atualizar os estilos externos. Faça commit também do `dist/` atualizado, que é publicado diretamente sem depender desse serviço externo.
 
 Vídeos decorativos são silenciosos e carregados quando visíveis. A prévia da aula inicia apenas após clique. Imagens de avaliações podem ser ampliadas.
+
+Para recriar `/gro` a partir da página principal atual, execute `node build-gro.mjs`. A saída fica em `dist/gro/index.html`; os ficheiros de imagem, vídeo, CSS e JavaScript partilhados usam caminhos a partir da raiz. A página principal permanece independente.
