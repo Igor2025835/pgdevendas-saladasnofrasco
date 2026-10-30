@@ -35,7 +35,7 @@ Para recriar `/gro` a partir da página principal atual, execute `node build-gro
 
 ## Distribuição 50/50 e atribuição
 
-Na Vercel, `traffic-router.mjs` divide novas visitas à raiz entre a principal (`src=pg1`) e `/gro` (`src=gro`), antes de carregar a página e os pixels. A atribuição é aleatória por visitante e fica guardada num cookie durante 30 dias; amostras pequenas podem não resultar exatamente em metade para cada versão. As UTMs e os parâmetros dos anúncios são preservados; um `src` de campanha anterior fica em `ad_src`.
+Na Vercel, `traffic-router.js` divide novas visitas à raiz entre a principal (`src=pg1`) e `/gro` (`src=gro`), antes de carregar a página e os pixels. A atribuição é aleatória por visitante e fica guardada num cookie durante 30 dias; amostras pequenas podem não resultar exatamente em metade para cada versão. As UTMs e os parâmetros dos anúncios são preservados; um `src` de campanha anterior fica em `ad_src`.
 
 Acesso direto a `/gro` mantém essa versão. Para rever uma página específica, usa `/?src=pg1` ou `/gro?src=gro`. Os checkouts normais mantêm o respetivo `src`, mesmo após alterações da UTMify; as ofertas de saída conservam `src=backredirect`. Assets, `/v2`, `/v3` e `/backredirect` ficam fora da divisão.
 

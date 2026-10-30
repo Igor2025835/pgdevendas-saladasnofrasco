@@ -5,7 +5,7 @@
   "installCommand": "",
   "outputDirectory": "dist",
   "proxy": {
-    "entrypoint": "traffic-router.mjs",
+    "entrypoint": "traffic-router.js",
     "matcher": ["/", "/index.html", "/gro", "/gro/", "/gro/index.html"]
   }
 }

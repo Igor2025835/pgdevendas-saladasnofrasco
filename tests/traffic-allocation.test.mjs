@@ -1,7 +1,7 @@
 import {test} from 'node:test';
 import assert from 'node:assert/strict';
 import {allocateLanding,cookieName} from '../traffic-allocation.mjs';
-import proxy from '../traffic-router.mjs';
+import proxy from '../traffic-router.js';
 
 test('new visitors split evenly at the probability boundary and receive sticky cookies',()=>{
  for(const [random,variant] of [[0,'pg1'],[0.4999,'pg1'],[0.5,'gro'],[0.9999,'gro']]){
