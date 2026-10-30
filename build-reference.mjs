@@ -90,7 +90,7 @@ result=result.replaceAll('7 dias de garantia','14 dias de garantia').replaceAll(
 result=result.replace('src="original-local.js"',`src="original-local.js?v=${scriptVersion}"`);
 result=localizePtPt(result);
 // Sales CTAs lead to the plans; the plan's purchase button opens checkout.
-const checkoutUrl='https://pay.hotmart.com/O108101669E?checkoutMode=10';
+const checkoutUrl='https://pay.hotmart.com/O108101669E?checkoutMode=10&src=pg1';
 const afterOffer=result.indexOf('</section>',result.indexOf('id="oferta"'))+'</section>'.length;
 result=result.replace(/<a\b([^>]*)>([\s\S]*?)<\/a>/g,(all,attrs,body,offset)=>{
  const classes=attrs.match(/\bclass="([^"]*)"/)?.[1].split(/\s+/)||[];
@@ -112,6 +112,8 @@ const heroVersion=createHash('sha256').update(await fs.readFile('dist/hero-lesso
 result=result.replace('</body>',exitOffer+`<script src="hero-lesson.js?v=${heroVersion}" defer></script>`+attributionScript+`<script src="exit-offer.js?v=${exitVersion}" defer></script></body>`);
 const v1CssVersion=createHash('sha256').update(await fs.readFile('dist/v1.css')).digest('hex').slice(0,10);
 const v1LayoutVersion=createHash('sha256').update(await fs.readFile('dist/v1-layout.js')).digest('hex').slice(0,10);
+const pageAttributionVersion=createHash('sha256').update(await fs.readFile('dist/page-attribution.js')).digest('hex').slice(0,10);
+result=result.replace('</body>',`<script src="page-attribution.js?v=${pageAttributionVersion}" defer></script></body>`);
 await fs.writeFile('dist/index.html',result.replace('</head>',`<link rel="stylesheet" href="v1.css?v=${v1CssVersion}"></head>`).replace('</body>',`<script src="v1-layout.js?v=${v1LayoutVersion}" defer></script></body>`));
 const backHead=result.slice(0,result.indexOf('<body'))
  .replace('<head>','<head><base href="/"><meta name="robots" content="noindex, follow">')

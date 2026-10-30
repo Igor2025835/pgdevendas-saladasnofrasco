@@ -59,14 +59,14 @@ test('GRO keeps hero copy after video, illustrated pain, and decision section af
  const closingIndex=sections.findIndex(section=>section.includes('id="gro-closing-title"'));
  const faqIndex=sections.findIndex(section=>section.includes('class="gro-faq"'));
  assert.equal(faqIndex+1,closingIndex);
- assert.match(sections[closingIndex],/href="https:\/\/pay\.hotmart\.com\/O108101669E\?checkoutMode=10"/);
+ assert.match(sections[closingIndex],/href="https:\/\/pay\.hotmart\.com\/O108101669E\?checkoutMode=10&src=gro"/);
  assert.equal((gro.match(/class="routine-section/g)||[]).length,1);
  assert.ok(!main.includes('gro-dores'));
  assert.ok(!gro.includes('</h2><figure class="gro-faq-media"'));
 });
 
 test('GRO keeps regular and reduced checkouts consistent with their CTAs and tracking',()=>{
- assert.ok(gro.includes('<p class="gro-price-before">Antes <del>47 €</del></p>'));
+ assert.ok(gro.includes('<del class="gro-price-before" aria-label="Preço anterior: 47 euros">47 €</del>'));
  assert.ok(gro.includes('Acesso vitalício + 70% de desconto + bónus'));
  assert.ok(!gro.includes('Cerca de 70%'));
  assert.ok(gro.includes('id="gro-countdown" role="timer"'));
@@ -81,9 +81,17 @@ test('GRO keeps regular and reduced checkouts consistent with their CTAs and tra
   assert.ok(approved.has(label),label);
   const href=attrs.match(/href="([^"]+)"/)?.[1];
   if(label.includes('7,90'))assert.ok(href.includes('off=j1f0nk4j')&&href.includes('src=backredirect'));
-  else assert.ok(href==='#oferta'||href==='https://pay.hotmart.com/O108101669E?checkoutMode=10');
+  else assert.ok(href==='#oferta'||href==='https://pay.hotmart.com/O108101669E?checkoutMode=10&src=gro');
  }
- for(const script of ['scripts/utms/latest.js','scripts/pixel/pixel.js','hero-lesson.js?v=','recovery-attribution.js?v=','exit-offer.js?v=','gro-promo.js?v='])assert.equal(gro.split(script).length-1,1,script);
+ for(const script of ['scripts/utms/latest.js','scripts/pixel/pixel.js','hero-lesson.js?v=','recovery-attribution.js?v=','exit-offer.js?v=','gro-promo.js?v=','page-attribution.js?v='])assert.equal(gro.split(script).length-1,1,script);
  assert.ok(gro.includes('z0pryz1i8w'));
  assert.ok(!gro.includes("fbq('init'"));
+});
+
+test('GRO places old price beside current price and includes the updated bonus descriptions and CTA',()=>{
+ assert.match(gro,/<div><del class="gro-price-before"[^>]*>47 €<\/del><strong>14<\/strong>/);
+ const section=gro.match(/<section class="new-bonuses section" id="bonus">[\s\S]*?<\/section>/)[0];
+ for(const copy of ['Molhos saudáveis e irresistíveis','Feitos com ingredientes simples que já tens em casa.','apoiar o emagrecimento ou a manutenção da forma — sem passares fome.','Filtra pelo que tens em casa, gera lista de compras, planeia a semana e escolhe o tipo de salada em segundos.'])assert.ok(section.includes(copy),copy);
+ assert.equal((section.match(/Incluído no plano/g)||[]).length,3);
+ assert.match(section,/data-gro-bonus-cta[^>]*>Quero as minhas saladas prontas esta semana/);
 });

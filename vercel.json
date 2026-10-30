@@ -3,5 +3,9 @@
   "framework": null,
   "buildCommand": "",
   "installCommand": "",
-  "outputDirectory": "dist"
+  "outputDirectory": "dist",
+  "proxy": {
+    "entrypoint": "traffic-router.mjs",
+    "matcher": ["/", "/index.html", "/gro", "/gro/", "/gro/index.html"]
+  }
 }

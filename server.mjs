@@ -2,17 +2,24 @@ import http from 'node:http';
 import { readFile } from 'node:fs/promises';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { allocateLanding } from './traffic-allocation.mjs';
 
 const root = path.join(path.dirname(fileURLToPath(import.meta.url)), 'dist');
 const types = { '.html': 'text/html; charset=utf-8', '.css': 'text/css; charset=utf-8', '.js': 'text/javascript; charset=utf-8', '.webp': 'image/webp', '.png': 'image/png', '.svg': 'image/svg+xml', '.woff2': 'font/woff2', '.mp4': 'video/mp4' };
 const server = http.createServer(async (req, res) => {
   try {
     const url = new URL(req.url, 'http://localhost');
+    const allocation = ['GET', 'HEAD'].includes(req.method) ? allocateLanding(url.href, req.headers.cookie || '') : null;
+    if (allocation?.redirect) {
+      const target = new URL(allocation.redirect);
+      res.writeHead(302, {...allocation.headers, Location: target.pathname + target.search});
+      res.end(); return;
+    }
     const pathname = /^\/(backredirect|v2|v3|gro)\/?$/.test(url.pathname) ? url.pathname.replace(/\/$/,'')+'/index.html' : url.pathname === '/' ? '/index.html' : url.pathname;
     const filename = path.resolve(root, '.' + decodeURIComponent(pathname));
     if (!filename.startsWith(root + path.sep)) { res.writeHead(403); res.end(); return; }
     const data = await readFile(filename);
-    const headers = { 'Content-Type': types[path.extname(filename)] || 'application/octet-stream', 'Cache-Control': 'no-cache', 'Accept-Ranges': 'bytes' };
+    const headers = { 'Content-Type': types[path.extname(filename)] || 'application/octet-stream', 'Cache-Control': 'no-cache', 'Accept-Ranges': 'bytes', ...allocation?.headers };
     if (req.headers.range) {
       const match = /^bytes=(\d*)-(\d*)$/.exec(req.headers.range);
       if (!match || (!match[1] && !match[2])) {

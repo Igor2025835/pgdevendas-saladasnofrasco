@@ -94,7 +94,7 @@ test('rendered pages retain distinct prices, checkout destinations, images and t
  const main=fs.readFileSync(new URL('../dist/index.html',import.meta.url),'utf8');
  const reduced=fs.readFileSync(new URL('../dist/backredirect/index.html',import.meta.url),'utf8');
  const special='https://pay.hotmart.com/O108101669E?off=j1f0nk4j&amp;checkoutMode=10&amp;src=backredirect';
- assert.equal((main.match(/href="https:\/\/pay.hotmart.com\/O108101669E\?checkoutMode=10"/g)||[]).length,1);
+ assert.equal((main.match(/href="https:\/\/pay.hotmart.com\/O108101669E\?checkoutMode=10&src=pg1"/g)||[]).length,1);
  assert.equal((main.match(/href="#oferta"/g)||[]).length,11);
  assert.ok(main.includes('<strong>14</strong><span class="plan-price-cents">,90</span>'));
  const specialLinks=[...reduced.matchAll(/<a\b[^>]*href="(https:\/\/pay.hotmart.com[^\"]+)"/g)].map(m=>m[1]);

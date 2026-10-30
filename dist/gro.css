@@ -15,8 +15,7 @@
 .sales-gro .gro-hook{display:block;font-size:clamp(34px,4.1vw,44px);line-height:1.25;font-weight:750;color:#FB6E08}
 .sales-gro .gro-hook-explanation{display:block;max-width:670px;margin:13px auto 0;font-size:clamp(18px,2.1vw,22px);line-height:1.65;font-weight:700;letter-spacing:-.015em}
 .sales-gro .gro-warning{color:#516927;font:inherit;letter-spacing:inherit}
-.sales-gro #oferta .gro-price-before{margin:0 0 15px;color:#697461;font:500 15px/1.5 'Poppins',Arial,sans-serif}
-.sales-gro .gro-price-before del{font-size:20px;text-decoration-thickness:2px}
+.sales-gro #oferta .gro-price-before{flex:0 0 auto;margin:0 14px 0 0;color:#bd3232;font:600 22px/1.5 'Poppins',Arial,sans-serif;text-decoration:line-through;text-decoration-thickness:2px;white-space:nowrap}
 .sales-gro .gro-value{max-width:650px;margin:27px auto 0;color:#183f34;font:500 clamp(15px,1.7vw,18px)/1.75 'Sora',Arial,sans-serif;text-wrap:pretty}
 .sales-gro .gro-value em{color:#516927;font:inherit;font-style:normal}
 .sales-gro .gro-hero .hero-action{margin:22px 0 28px}
@@ -69,6 +68,7 @@
 .sales-gro .section-plan-cta{max-width:530px;margin:28px auto 0}
 .sales-gro .section-plan-cta .button{width:100%}
 @media(max-width:700px){
+ .sales-gro #oferta .gro-price-before{font-size:18px;margin-right:12px}
  .sales-gro .gro-announcement{padding:10px 12px}
  .sales-gro .gro-announcement-inner{gap:12px;justify-content:space-between}
  .sales-gro .gro-announcement p{text-align:left;font-size:10px;line-height:1.45}

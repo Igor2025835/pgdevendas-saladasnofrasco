@@ -3,7 +3,7 @@ import {createHash} from 'node:crypto';
 
 // GRO is an independent route built from the current main page.
 let html=await fs.readFile('dist/index.html','utf8');
-const checkout='https://pay.hotmart.com/O108101669E?checkoutMode=10';
+const checkout='https://pay.hotmart.com/O108101669E?checkoutMode=10&src=gro';
 const primary='Quero as minhas saladas prontas esta semana';
 const painCta='Quero parar de comer saladas sem graça';
 const completeCta='Sim, quero o plano completo antes que acabe';
@@ -68,7 +68,22 @@ html=html.replace(/<meta name="description" content="[^"]*">/,'<meta name="descr
 
 const guarantee='<div class="plan-guarantee gro-guarantee"><svg aria-hidden="true"><use href="#shield"/></svg><p><strong>Tens 14 dias completos para testar.</strong>Se não ficares viciada nas saladas, se não poupares tempo e dinheiro, se não notares diferença… é só pedir o reembolso. Eu devolvo 100%. Sem perguntas.</p></div>';
 html=html.replace(/<div class="plan-guarantee">[\s\S]*?<\/div>/,guarantee);
-html=html.replace('<div class="plan-price">','<div class="plan-price"><p class="gro-price-before">Antes <del>47 €</del></p>');
+html=html.replace(/(<div class="plan-price"><span>[^<]*<\/span><div>)/,'$1<del class="gro-price-before" aria-label="Preço anterior: 47 euros">47 €</del>');
+
+const bonuses=html.match(/<section class="new-bonuses section" id="bonus">[\s\S]*?<\/section>/)?.[0];
+if(!bonuses)throw Error('Missing bonus section');
+let bonusNumber=0;
+const bonusCopy=[
+ ['Molhos saudáveis e irresistíveis','Molhos caseiros que transformam qualquer salada numa refeição com sabor de verdade. Feitos com ingredientes simples que já tens em casa.'],
+ ['Saladas proteicas','Receitas completas com proteína, pensadas para te deixar satisfeita por mais tempo e apoiar o emagrecimento ou a manutenção da forma — sem passares fome.'],
+ ['App de receitas','Todas as receitas organizadas no telemóvel. Filtra pelo que tens em casa, gera lista de compras, planeia a semana e escolhe o tipo de salada em segundos.']
+];
+const updatedBonuses=bonuses.replace(/<h3>[^<]*<\/h3><p>[\s\S]*?<\/p>/g,()=>{
+ const [title,description]=bonusCopy[bonusNumber++];
+ return `<h3>${title}</h3><p>${description}</p>`;
+}).replace(/(<a\b[^>]*class="[^"]*button[^"\n]*")/,'$1 data-gro-bonus-cta');
+if(bonusNumber!==3)throw Error('Expected three bonus cards');
+html=html.replace(bonuses,updatedBonuses);
 
 // The inherited FAQ is an Elementor container. Give it a genuine media-led section.
 const faq=elementRange(html,'data-id="3d6ee6f"');
@@ -97,7 +112,7 @@ html=html.replace(/<a\b([^>]*)>([\s\S]*?)<\/a>/g,(all,attrs,body,offset)=>{
  if(classes.includes('exit-offer-checkout'))return '<a'+attrs+'>Garantir o meu acesso agora – 7,90€'+arrow+'</a>';
  const isCheckout=classes.includes('plan-checkout')||offset>offerStart;
  const destination=isCheckout?checkout:'#oferta';
- const label=isCheckout||body.includes(completeCta)?completeCta:(normalCta++%2===0?primary:painCta);
+ const label=attrs.includes('data-gro-bonus-cta')?primary:isCheckout||body.includes(completeCta)?completeCta:(normalCta++%2===0?primary:painCta);
  attrs=attrs.replace(/\bhref="[^"]*"/,`href="${destination}"`);
  return '<a'+attrs+'>'+label+arrow+'</a>';
 });
