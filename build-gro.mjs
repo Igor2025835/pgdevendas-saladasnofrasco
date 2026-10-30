@@ -33,7 +33,6 @@ const newHero=`<section class="hero gro-hero" aria-labelledby="gro-title"><div c
  <p class="gro-warning">E vais desistir outra vez daqui a poucos dias… como sempre.</p>
  ${heroMedia}
  <p class="gro-value">60 receitas de saladas <em>saborosas e rápidas</em> para teres sempre em casa — que nem parecem “comida de dieta”.</p>
- <p class="gro-support">Prepara as saladas da semana em menos de 20 minutos e conserva-as até 7 dias sem murcharem.</p>
  <div class="hero-action"><a class="button button-primary" href="#oferta">${primary}${arrow}</a></div>
  </div></section>`;
 const tasteSection=html.match(/<section class="contents-taste-section"[\s\S]*?<\/section>/)?.[0];
@@ -59,7 +58,7 @@ const pain=`<section class="routine-section gro-pain" id="gro-dores" aria-labell
 html=html.replace(/<section class="routine-section">[\s\S]*?<\/section>/,'');
 html=html.replace(hero,newHero+pain);
 html=html.replace('class="elementor-kit-5 sales-v1"','class="elementor-kit-5 sales-v1 sales-gro"');
-const announcement=`<aside class="gro-announcement" aria-label="Promoção de aniversário"><div class="gro-announcement-inner"><p><strong>Promoção de aniversário · Acesso vitalício</strong><span data-gro-promo-message>Cerca de 70% de desconto</span></p><div class="gro-announcement-timer" data-gro-timer-wrap><span>Termina em</span><span id="gro-countdown" role="timer" aria-live="off" aria-label="1 hora e 53 minutos">01:53:00</span></div></div></aside>`;
+const announcement=`<aside class="gro-announcement" aria-label="Promoção de aniversário"><div class="gro-announcement-inner"><p><strong>Promoção de aniversário</strong><span data-gro-promo-message>Acesso vitalício + 70% de desconto + bónus</span></p><div class="gro-announcement-timer" data-gro-timer-wrap><span>Termina em</span><span id="gro-countdown" role="timer" aria-live="off" aria-label="1 hora e 53 minutos">01:53:00</span></div></div></aside>`;
 html=html.replace(/(<body\b[^>]*>)/,'$1'+announcement);
 html=html.replace(/<title>[\s\S]*?<\/title>/,'<title>Saladas prontas esta semana — Saladas Saborosas no Frasco</title>');
 html=html.replace(/<meta name="description" content="[^"]*">/,'<meta name="description" content="Muda o método: 60 receitas de saladas saborosas e rápidas, molhos, aulas e app para teres as refeições da semana organizadas.">');

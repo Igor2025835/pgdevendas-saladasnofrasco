@@ -11,7 +11,7 @@ function page(options={}){
  const saved=options.saved??new Map();
  const handlers=new Map(),intervals=new Map(),styles=new Map();let next=0;
  const counter={textContent:'01:53:00',setAttribute(name,value){this[name]=value;}};
- const timerWrap={hidden:false},message={textContent:'Cerca de 70% de desconto'};
+ const timerWrap={hidden:false},message={textContent:'Acesso vitalício + 70% de desconto + bónus'};
  const bar={querySelector:s=>s==='[data-gro-timer-wrap]'?timerWrap:message,getBoundingClientRect:()=>({height:78})};
  const document={hidden:false,querySelector:s=>s==='.gro-announcement'?bar:counter,documentElement:{style:{setProperty:(k,v)=>styles.set(k,v)}},addEventListener:(name,fn)=>handlers.set('document:'+name,fn)};
  const storage={getItem:k=>{if(options.blocked)throw Error('Unavailable');return saved.get(k)??null;},setItem:(k,v)=>{if(options.blocked||options.readOnly)throw Error('Blocked');saved.set(k,v);}};
@@ -24,7 +24,6 @@ test('anniversary timer starts at 1h53 and reload preserves elapsed time',()=>{
  const p=page();assert.equal(p.counter.textContent,'01:53:00');
  p.advance(60000);assert.equal(p.counter.textContent,'01:52:00');
  const q=page({now:p.now(),saved:p.saved});assert.equal(q.counter.textContent,'01:52:00');
- assert.equal(q.styles.get('--gro-announcement-height'),'78px');
 });
 test('expired anniversary timer stays expired after reload and removes the countdown claim',()=>{
  const p=page();p.advance(113*60*1000);

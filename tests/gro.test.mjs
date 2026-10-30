@@ -42,8 +42,9 @@ test('GRO keeps hero copy after video, illustrated pain, and decision section be
  assert.ok(sections[1].includes('id="gro-dores"'));
  const hero=sections[0];
  assert.ok(hero.indexOf('</video>')<hero.indexOf('class="gro-value"'));
- assert.ok(hero.indexOf('class="gro-value"')<hero.indexOf('class="gro-support"'));
- assert.ok(hero.indexOf('class="gro-support"')<hero.indexOf('class="hero-action"'));
+ assert.ok(hero.indexOf('class="gro-value"')<hero.indexOf('class="hero-action"'));
+ assert.ok(!hero.includes('class="gro-support"'));
+ assert.ok(!hero.includes('Prepara as saladas da semana em menos de 20 minutos e conserva-as até 7 dias sem murcharem.'));
  assert.ok(sections[1].includes('/assets/gro-comparacao-antes-v1-640.webp'));
  assert.ok(sections[1].includes('/assets/gro-comparacao-depois-v1-640.webp'));
  assert.ok(sections[1].includes('class="gro-method-answer"'));
@@ -63,7 +64,8 @@ test('GRO keeps hero copy after video, illustrated pain, and decision section be
 
 test('GRO keeps regular and reduced checkouts consistent with their CTAs and tracking',()=>{
  assert.ok(gro.includes('<p class="gro-price-before">Antes <del>47 €</del></p>'));
- assert.ok(gro.includes('Cerca de 70% de desconto'));
+ assert.ok(gro.includes('Acesso vitalício + 70% de desconto + bónus'));
+ assert.ok(!gro.includes('Cerca de 70%'));
  assert.ok(gro.includes('id="gro-countdown" role="timer"'));
  assert.ok(gro.includes('>01:53:00</span>'));
  assert.ok(gro.includes('<strong>14</strong><span class="plan-price-cents">,90</span>'));

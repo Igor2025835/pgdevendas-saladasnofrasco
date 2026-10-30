@@ -19,7 +19,6 @@
   }
   deadline??=Date.now()+duration;
   let interval=null;
-  const measure=()=>document.documentElement.style.setProperty('--gro-announcement-height',`${Math.ceil(bar.getBoundingClientRect().height)}px`);
   const stop=()=>{if(interval!==null)clearInterval(interval);interval=null;};
   const render=()=>{
     const remaining=Math.max(0,Math.ceil((deadline-Date.now())/1000));
@@ -32,7 +31,6 @@
       stop();
       timerWrap.hidden=true;
       message.textContent='Prazo da promoção terminado.';
-      measure();
     }
     return remaining;
   };
@@ -48,8 +46,5 @@
   document.addEventListener('visibilitychange',resume);
   window.addEventListener('pagehide',stop);
   window.addEventListener('pageshow',resume);
-  window.addEventListener('resize',measure);
-  if(typeof ResizeObserver==='function')new ResizeObserver(measure).observe(bar);
-  measure();
   resume();
 })();
