@@ -30,22 +30,22 @@ if(!hero)throw Error('Missing original hero');
 const heroMedia=elementRange(hero,'class="hero-main-image hero-lesson-media"').markup;
 const newHero=`<section class="hero gro-hero" aria-labelledby="gro-title"><div class="wrap">
  <h1 id="gro-title"><span class="gro-hook">Pára de mentir a ti mesma.</span><span class="gro-hook-explanation">Se continuares com o mesmo método, daqui a sete dias vais estar outra vez a comer mal, a adiar os teus objetivos e a sentir a mesma frustração de sempre.</span></h1>
+ ${heroMedia}
  <p class="gro-value">60 receitas de saladas <em>saborosas e rápidas</em> para teres sempre em casa — que nem parecem “comida de dieta”.</p>
  <p class="gro-support">Prepara as saladas da semana em menos de 20 minutos e conserva-as até 7 dias sem murcharem.</p>
  <div class="hero-action"><a class="button button-primary" href="#oferta">${primary}${arrow}</a></div>
- ${heroMedia}
  </div></section>`;
 const pain=`<section class="routine-section gro-pain" id="gro-dores" aria-labelledby="gro-pain-title"><div class="review-wrap">
  <h2 class="review-heading" id="gro-pain-title">Isto acontece contigo?</h2>
- <div class="gro-pain-layout"><figure class="gro-pain-image">${photo('original-9.webp','Salada no frasco com frango e molho cremoso','width="1080" height="1350"')}</figure><div>
+ <div class="gro-pain-layout"><figure class="gro-pain-image">${photo('gro-dores-refeicoes-v1-480.webp','Mulher à mesa com uma refeição encomendada, frustrada por voltar a adiar os seus objetivos','srcset="assets/gro-dores-refeicoes-v1-480.webp 480w, assets/gro-dores-refeicoes-v1-784.webp 784w" sizes="(max-width: 700px) calc(100vw - 32px), 390px" width="784" height="1168"')}</figure><div>
  <ul class="routine-grid gro-pain-list">
  <li class="routine-item"><span><svg aria-hidden="true"><use href="#leaf"/></svg></span><p>Queres comer saudável mas as saladas que fazes são sem graça e enjoam em 2 dias</p></li>
  <li class="routine-item"><span><svg aria-hidden="true"><use href="#clock"/></svg></span><p>Dizes “amanhã começo” e amanhã já estás a pedir delivery</p></li>
  <li class="routine-item"><span><svg aria-hidden="true"><use href="#jar"/></svg></span><p>Gastas 8-12€ numa salada de restaurante e ainda ficas com fome</p></li>
  <li class="routine-item"><span><svg aria-hidden="true"><use href="#leaf"/></svg></span><p>A alface murcha, o dinheiro vai pelo ralo e a culpa fica</p></li>
- </ul><p class="gro-pain-answer">Se isto é a tua realidade, o problema não és tu.<strong>É o método.</strong></p>
- </div></div>${cta(painCta)}</div></section>`;
-// Move the pain section to immediately after the hero video, avoiding repetition.
+ </ul></div></div><p class="gro-pain-answer">Se isto é a tua realidade, o problema não és tu.<strong>É o método.</strong></p>
+ ${cta(painCta)}</div></section>`;
+// Keep the pain section immediately after the hero, avoiding repetition.
 html=html.replace(/<section class="routine-section">[\s\S]*?<\/section>/,'');
 html=html.replace(hero,newHero+pain);
 html=html.replace('class="elementor-kit-5 sales-v1"','class="elementor-kit-5 sales-v1 sales-gro"');
@@ -69,8 +69,8 @@ const closing=`<section class="gro-closing section" aria-labelledby="gro-closing
  <li>A abrir o frigorífico e ter refeições prontas, saborosas e organizadas… a comer saudável de verdade, a perder peso ou a manter a forma sem sofrer, e a sentir que desta vez foi diferente.</li>
  </ol></div>
  <div class="gro-decision"><p><strong>Não existe meio-termo.</strong><br>A escolha é tua. O resultado também.</p><p>Ou mudas o método agora, ou aceitas o resultado de sempre.</p></div>
- ${cta(completeCta,checkout)}</div></section>`;
-html=html.replace('</main>',closing+'</main>');
+ ${cta(completeCta)}</div></section>`;
+html=html.replace('<section class="purchase-section purchase-plans"',closing+'<section class="purchase-section purchase-plans"');
 
 // Make every sales CTA one of the approved lines. The €7.90 claim appears ONLY
 // on the existing reduced checkout, which has its own Hotmart offer parameter.
@@ -82,7 +82,7 @@ html=html.replace(/<a\b([^>]*)>([\s\S]*?)<\/a>/g,(all,attrs,body,offset)=>{
  if(classes.includes('exit-offer-checkout'))return '<a'+attrs+'>Garantir o meu acesso agora – 7,90€'+arrow+'</a>';
  const isCheckout=classes.includes('plan-checkout')||offset>offerStart;
  const destination=isCheckout?checkout:'#oferta';
- const label=isCheckout?completeCta:(normalCta++%2===0?primary:painCta);
+ const label=isCheckout||body.includes(completeCta)?completeCta:(normalCta++%2===0?primary:painCta);
  attrs=attrs.replace(/\bhref="[^"]*"/,`href="${destination}"`);
  return '<a'+attrs+'>'+label+arrow+'</a>';
 });

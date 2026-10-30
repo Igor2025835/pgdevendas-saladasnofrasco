@@ -27,7 +27,7 @@ test('GRO preserves all original image/video files and resolves local files on e
  assert.ok(gro.includes('data-full-src="/assets/metodo-aula-previa-v1.mp4"'));
 });
 
-test('GRO has one H1, mandatory copy, media in every section and pain immediately after hero',()=>{
+test('GRO keeps hero copy after video, illustrated pain, and decision section before offer',()=>{
  assert.equal((gro.match(/<h1\b/g)||[]).length,1);
  assert.ok(gro.includes('Pára de mentir a ti mesma.'));
  assert.ok(gro.includes('O resultado também.'));
@@ -39,7 +39,15 @@ test('GRO has one H1, mandatory copy, media in every section and pain immediatel
  assert.ok(sections[0].includes('hero-lesson-video'));
  assert.ok(sections[1].includes('id="gro-dores"'));
  const hero=sections[0];
- assert.ok(hero.indexOf('class="hero-action"')<hero.indexOf('<video'));
+ assert.ok(hero.indexOf('</video>')<hero.indexOf('class="gro-value"'));
+ assert.ok(hero.indexOf('class="gro-value"')<hero.indexOf('class="gro-support"'));
+ assert.ok(hero.indexOf('class="gro-support"')<hero.indexOf('class="hero-action"'));
+ assert.ok(sections[1].includes('/assets/gro-dores-refeicoes-v1-480.webp'));
+ assert.ok(sections[1].includes('srcset="/assets/gro-dores-refeicoes-v1-480.webp 480w, /assets/gro-dores-refeicoes-v1-784.webp 784w"'));
+ const closingIndex=sections.findIndex(section=>section.includes('id="gro-closing-title"'));
+ const offerIndex=sections.findIndex(section=>section.includes('id="oferta"'));
+ assert.equal(closingIndex+1,offerIndex);
+ assert.match(sections[closingIndex],/href="#oferta"/);
  assert.equal((gro.match(/class="routine-section/g)||[]).length,1);
  assert.ok(!main.includes('gro-dores'));
  assert.ok(!gro.includes('</h2><figure class="gro-faq-media"'));
