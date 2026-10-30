@@ -41,8 +41,11 @@ test('GRO keeps hero copy after video, illustrated pain, and decision section be
  assert.ok(sections[0].includes('hero-lesson-video'));
  assert.ok(sections[1].includes('id="gro-dores"'));
  const hero=sections[0];
+ assert.match(hero,/<span class="gro-hook-explanation">[^<]+<span class="gro-warning">[^<]+<\/span><\/span><\/h1>/);
  assert.ok(hero.indexOf('</video>')<hero.indexOf('class="gro-value"'));
  assert.ok(hero.indexOf('class="gro-value"')<hero.indexOf('class="hero-action"'));
+ assert.ok(hero.indexOf('class="gro-hero-badges"')>hero.indexOf('class="hero-action"'));
+ for(const label of ['14 dias de garantia','Acesso imediato por e-mail','+60 receitas'])assert.ok(hero.includes(label));
  assert.ok(!hero.includes('class="gro-support"'));
  assert.ok(!hero.includes('Prepara as saladas da semana em menos de 20 minutos e conserva-as até 7 dias sem murcharem.'));
  assert.ok(sections[1].includes('/assets/gro-comparacao-antes-v1-640.webp'));

@@ -29,11 +29,14 @@ const hero=html.match(/<section class="hero">[\s\S]*?<\/section>/)?.[0];
 if(!hero)throw Error('Missing original hero');
 const heroMedia=elementRange(hero,'class="hero-main-image hero-lesson-media"').markup;
 const newHero=`<section class="hero gro-hero" aria-labelledby="gro-title"><div class="wrap">
- <h1 id="gro-title"><span class="gro-hook">Pára de mentir a ti mesma.</span><span class="gro-hook-explanation">Enquanto continuares com saladas e dietas sem sabor, nunca vais alcançar o corpo e a rotina que queres.</span></h1>
- <p class="gro-warning">E vais desistir outra vez daqui a poucos dias… como sempre.</p>
+ <h1 id="gro-title"><span class="gro-hook">Pára de mentir a ti mesma.</span><span class="gro-hook-explanation">Enquanto continuares com saladas e dietas sem sabor, nunca vais alcançar o corpo e a rotina que queres. <span class="gro-warning">E vais desistir outra vez daqui a poucos dias… como sempre.</span></span></h1>
  ${heroMedia}
  <p class="gro-value">60 receitas de saladas <em>saborosas e rápidas</em> para teres sempre em casa — que nem parecem “comida de dieta”.</p>
- <div class="hero-action"><a class="button button-primary" href="#oferta">${primary}${arrow}</a></div>
+ <div class="hero-action"><a class="button button-primary" href="#oferta">${primary}${arrow}</a><ul class="gro-hero-badges" aria-label="Condições de acesso">
+ <li><svg aria-hidden="true"><use href="#shield"/></svg><span>14 dias de garantia</span></li>
+ <li><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 6 9 7 9-7"/></svg><span>Acesso imediato por e-mail</span></li>
+ <li><svg aria-hidden="true"><use href="#book"/></svg><span>+60 receitas</span></li>
+ </ul></div>
  </div></section>`;
 const tasteSection=html.match(/<section class="contents-taste-section"[\s\S]*?<\/section>/)?.[0];
 if(!tasteSection)throw Error('Missing original taste video section');
